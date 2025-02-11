@@ -47,10 +47,10 @@ public class DataUtilitiesTest extends DataUtilities {
 	// Test Case 2: Null Values2D data object
 	@Test(expected = InvalidParameterException.class)
 	public void testInvalidDataAndValidColumn() {
-		DataUtilities.calculateColumnTotal(null, 0);
+		double result = DataUtilities.calculateColumnTotal(null, 0);
 	}
 
-	// Test Case 3:Valid Values2D data object but invalid column index (negative)
+	// Test Case 3: Valid Values2D data object but invalid column index (negative)
 	@Test
 	public void testValidDataAndInvalidColumn() {
 		context.checking(new Expectations() {
@@ -72,6 +72,60 @@ public class DataUtilitiesTest extends DataUtilities {
 
 		double result = DataUtilities.calculateColumnTotal(mockData, -10);
 		assertEquals(0.0, result, 0.0001);
+	}
+
+	// Test Case 4: Test valid Values2D data object and valid row index
+	@Test
+	public void testValidDataAndRow() {
+		context.checking(new Expectations() {
+			{
+				allowing(mockData).getRowCount();
+				will(returnValue(2));
+				allowing(mockData).getColumnCount();
+				will(returnValue(2));
+				allowing(mockData).getValue(0, 1);
+				will(returnValue(2.0));
+				allowing(mockData).getValue(1, 1);
+				will(returnValue(4.0));
+				allowing(mockData).getValue(0, 0);
+				will(returnValue(1.0));
+				allowing(mockData).getValue(1, 0);
+				will(returnValue(3.0));
+			}
+		});
+
+		double result = DataUtilities.calculateRowTotal(mockData, 1);
+		assertEquals(7.0, result, 0.0001);
+	}
+
+	// Test Case 5: Test invalid Values2D data object and valid row index
+	@Test(expected = InvalidParameterException.class)
+	public void testInvalidDataAndValidRow() {
+		double result = DataUtilities.calculateRowTotal(null, 1);
+	}
+
+	// Test Case 6: Test valid Values2D data object and invalid row index
+	@Test
+	public void testValidDataAndInvalidRow() {
+		context.checking(new Expectations() {
+			{
+				allowing(mockData).getRowCount();
+				will(returnValue(2));
+				allowing(mockData).getColumnCount();
+				will(returnValue(2));
+				allowing(mockData).getValue(0, 1);
+				will(returnValue(2.0));
+				allowing(mockData).getValue(1, 1);
+				will(returnValue(4.0));
+				allowing(mockData).getValue(0, 0);
+				will(returnValue(1.0));
+				allowing(mockData).getValue(1, 0);
+				will(returnValue(3.0));
+			}
+		});
+
+		double result = DataUtilities.calculateRowTotal(mockData, -10);
+		assertEquals(0, result, 0.0001);
 	}
 
 	@After
