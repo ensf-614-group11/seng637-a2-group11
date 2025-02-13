@@ -1,6 +1,7 @@
 package org.jfree.data.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.security.InvalidParameterException;
 
@@ -45,9 +46,18 @@ public class DataUtilitiesTest extends DataUtilities {
 	}
 
 	// Test Case 2: Null Values2D data object
-	@Test(expected = InvalidParameterException.class)
+	@Test
 	public void testInvalidDataAndValidColumn() {
-		double result = DataUtilities.calculateColumnTotal(null, 0);
+		try {
+			double result = DataUtilities.calculateColumnTotal(null, 0);
+			// If no exception is thrown, the test should fail
+			fail("Expected InvalidParameterException but no exception was thrown.");
+		} catch (InvalidParameterException e) {
+			// Test passes because the correct exception was thrown
+		} catch (Exception e) {
+			// Test fails because the wrong exception was thrown
+			fail("Expected InvalidParameterException but got " + e.getClass().getSimpleName());
+		}
 	}
 
 	// Test Case 3: Valid Values2D data object but invalid column index (negative)
@@ -67,11 +77,24 @@ public class DataUtilitiesTest extends DataUtilities {
 				will(returnValue(1.0));
 				allowing(mockData).getValue(1, 0);
 				will(returnValue(3.0));
+
+				allowing(mockData).getValue(0, -10);
+				will(throwException(new IndexOutOfBoundsException("Invalid column index")));
+
+				allowing(mockData).getValue(1, -10);
+				will(throwException(new IndexOutOfBoundsException("Invalid column index")));
+				// Javadoc specifies invalid columns in the getValue function in Values2D
+				// throws an IndexOutOfBoundsException.
+				// Therefore this behaviour will be simulated with the mock.
 			}
 		});
 
-		double result = DataUtilities.calculateColumnTotal(mockData, -10);
-		assertEquals(0.0, result, 0.0001);
+		try {
+			double result = DataUtilities.calculateColumnTotal(mockData, -10);
+			assertEquals(0.0, result, 0.0001);
+		} catch (Exception e) {
+			fail("Expected to return 0 but got a " + e.getClass().getSimpleName());
+		}
 	}
 
 	// Test Case 4: Test valid Values2D data object and valid row index
@@ -99,14 +122,24 @@ public class DataUtilitiesTest extends DataUtilities {
 	}
 
 	// Test Case 5: Test invalid Values2D data object and valid row index
-	@Test(expected = InvalidParameterException.class)
+	@Test
 	public void testInvalidDataAndValidRow() {
-		double result = DataUtilities.calculateRowTotal(null, 1);
+		try {
+			double result = DataUtilities.calculateRowTotal(null, 1);
+			// If no exception is thrown, the test should fail
+			fail("Expected InvalidParameterException but no exception was thrown.");
+		} catch (InvalidParameterException e) {
+			// Test passes because the correct exception was thrown
+		} catch (Exception e) {
+			// Test fails because the wrong exception was thrown
+			fail("Expected InvalidParameterException but got " + e.getClass().getSimpleName());
+		}
 	}
 
 	// Test Case 6: Test valid Values2D data object and invalid row index
 	@Test
 	public void testValidDataAndInvalidRow() {
+
 		context.checking(new Expectations() {
 			{
 				allowing(mockData).getRowCount();
@@ -121,11 +154,24 @@ public class DataUtilitiesTest extends DataUtilities {
 				will(returnValue(1.0));
 				allowing(mockData).getValue(1, 0);
 				will(returnValue(3.0));
+
+				allowing(mockData).getValue(-10, 0);
+				will(throwException(new IndexOutOfBoundsException("Invalid column index")));
+
+				allowing(mockData).getValue(-10, 1);
+				will(throwException(new IndexOutOfBoundsException("Invalid column index")));
+				// Javadoc specifies invalid rows in the getValue function in Values2D
+				// throws an IndexOutOfBoundsException.
+				// Therefore this behaviour will be simulated with the mock.
 			}
 		});
 
-		double result = DataUtilities.calculateRowTotal(mockData, -10);
-		assertEquals(0, result, 0.0001);
+		try {
+			double result = DataUtilities.calculateRowTotal(mockData, -10);
+			assertEquals(0.0, result, 0.0001);
+		} catch (Exception e) {
+			fail("Expected to return 0 but got a " + e.getClass().getSimpleName());
+		}
 	}
 
 	@After
