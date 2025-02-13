@@ -20,14 +20,14 @@ public class RangeTest {
  
     @Before
     public void setUp() throws Exception { 
-    	exampleRange = new Range(-1, 1);
-    	exampleRange2 = new Range(5.5, 10.5);
-    	exampleRange3 = new Range(15.0, 25.0);
-    	exampleRange4 = new Range(10.0, 17.5);
-    	exampleRange5 = new Range(0.5, 35.0);
-    	exampleRange6 = new Range (-10.5, 5.5);
-        exampleRange7 = new Range(45.5, 75.5);
-        exampleRange8 = new Range (-10.5, 75.5);
+    	exampleRange = new Range(-1, 1); // for example test
+    	exampleRange2 = new Range(5.5, 10.5); // for tests 1, 2, 3 
+    	exampleRange3 = new Range(15.0, 25.0); // for test 5, 6, 
+    	exampleRange4 = new Range(10.0, 17.5); // for test 7 
+    	exampleRange5 = new Range(0.5, 35.0); // for test 7 
+    	exampleRange6 = new Range (-10.5, 5.5); // for test 8 
+        exampleRange7 = new Range(45.5, 75.5); // for test 8 
+        exampleRange8 = new Range (-10.5, 75.5); // for test 8 
     
     }
 
