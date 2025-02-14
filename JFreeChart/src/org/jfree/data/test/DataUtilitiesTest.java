@@ -1,18 +1,20 @@
 package org.jfree.data.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.security.InvalidParameterException;
 
 import org.jfree.data.DataUtilities;
 import org.jfree.data.Values2D;
+import org.jfree.data.KeyedValues;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class DataUtilitiesTest extends DataUtilities {
 
