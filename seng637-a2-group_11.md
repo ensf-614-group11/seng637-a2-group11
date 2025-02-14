@@ -1,0 +1,508 @@
+**SENG 637 - Software Testing, Reliability, and Quality**
+
+**Lab. Report \#2 – Requirements-Based Test Generation**
+
+| Group \#:      |   11  |
+| -------------- | --- |
+| Student Names: |     |
+|Steven Au       |     |
+|Laurel Flanagan |     |
+|Rhys Wickens    |     |
+|Austen Zhang    |     |
+
+# 1 Introduction
+
+Text…
+
+# 2 Test Plan 
+The system under test is JFreeChart, an open-source Java framework for creating and displaying charts, including pie charts, 
+bar charts, line charts, and histograms. The purpose of the test plan is to provide an overview of the testing approach for 
+the JFreeChart system, including the test types, scope of testing, and test logistics. 
+
+## Test Types 
+The test approach consists of the following test type: 
+- Criteria-based unit testing 
+
+## Scope of Testing 
+The JFreeChart framework incudes two main packages, org.jfree.chart and org.jfree.data. The scope of testing is focused on the 
+org.jfree.data package. Test cases will be created for all 5 methods of the org.jfree.data.DataUtilities class and 5 of the 15 methods 
+from the org.jfree.data.Range class. 
+
+The methods to be tested include: 
+- DataUtilities class methods:
+    - calculateColumnTotal 
+    - calculateRowTotal
+    - createNumberArray
+    - createNumberArray2D
+    - getCumulativePercentages
+- Range class methods: 
+    - contains
+    - combine
+    - intersects
+    - shift
+    - equals 
+    
+The test scope is focused on functional testing, checking to see if the system functionality matches the requirements outlined in the 
+Javadoc provided for the JFreeChart system. The testing included in the plan is black box testing, checking the system functionality 
+based on the Javadoc specifications/requirements, not referencing the implementation of the system code. 
+ 
+The testing approach to be used for the criteria-based unit testing is partitioning, including equivalence class partitioning and 
+boundary value analysis techniques. Weak equivalence class testing will be used as the minimum number of test cases to ensure that the 
+number of test cases are manageable, and focus is placed on the quality of partitioning of the variables. Some cases may also be included 
+for robustness criteria, which will be determined on an as needed basis for each method. After test cases are designed using 
+partitioning, automated execution of the unit testing will be carried out using JUnit.
+
+## Test Logistics
+Testing can begin after all team members have completed section 2.1 of the lab instructions (familiarization with the system), the 
+Eclipse Java project has been set up with JAR files required to run the system, and the test plan has been developed including design of 
+all test cases. 
+
+The methods included in the scope to be tested will be divided among the team members. Steven Au and Laurel Flanagan will design test 
+cases and write unit test code for 5 of the Range class methods. Rhys Wickens and Austen Zhang will design test cases and write unit 
+test code for 5 of the DataUtilities class methods. 
+  
+All team members will design their test cases first based on equivalence class partitioning and boundary value analysis. The team members 
+will review the test cases in pairs to ensure all members are satisfied with the test coverage and quality (each team member designing 
+test cases for the Range class methods will review the test cases designed by the other team member, and each team member designing 
+test cases for the Utilities class methods will review the test cases designed by the other team member). Team members will then 
+develop code for their assigned test cases. The team will also review the JUnit test suite code in pairs as a quality check. The team 
+will then run the test suite and review the results. 
+ 
+## Test Environment 
+The test environment consists of an Eclipse Java Project with the JUnit framework and JAR files for JFreeChart provided in the Assignment 
+2 artifacts folder. 
+
+## Test Tasks and Schedule 
+Tasks required to complete the test plan and the estimated schedule for completion of these tasks is provided in the table below. 
+
+Table 1: Testing Schedule 
+| Task                                                       | Completion Date   |
+|------------------------------------------------------------|-------------------|
+| Complete Section 2.1 of Lab Instructions – Familiarization  | February 6, 2025  |
+| Select Methods for Testing and Review Javadoc Specifications| February 7, 2025  |
+| Develop Test Plan and Design Test Cases                    | February 8, 2025  |
+| Team Review of Test Cases                                  | February 9, 2025  |
+| Develop Unit Test Code in JUnit framework                  | February 11, 2025 |
+| Team Review of Unit Test Code                              | February 12, 2025 |
+| Review JUnit Test Suite Results                            | February 13, 2025 |
+| Reporting                                                  | February 17, 2025 |
+
+## Test Deliverables
+The before testing phase deliverables include:
+ - Test plan 
+ - Test cases
+ 
+ The during testing phase deliverables include:
+ - Unit test code in JUnit for test cases 
+ - Error logs and messages from the system 
+ 
+ The after testing deliverables include: 
+ - JUnit test suite results 
+ - Lab Report  
+
+# 3 Detailed description of unit test strategy
+## Test Case Design 
+As mentioned previously, the test case design includes equivalence class partitioning and boundary value analysis techniques. The 
+following points provide a general outline for the design procedure for the test cases. A review of each of these points is completed in 
+the subsections below for each method included in the testing scope.   
+
+- Number of independent variables
+- Number of equivalence classes/partitions for each variable 
+- Number of test cases based on weak equivalence testing
+- Select tests at or near boundary values of equivalence classes 
+- Consideration for robustness criteria 
+- Review test cases and remove redundancies 
+
+### DataUtilities Class Methods 
+#### calculateColumnTotal 
+The `calculateColumnTotal` method returns a double that corresponds to the sum of a particular column in a Values2D data object. The 
+arguments in this method are the Values2D data object and an int value corresponding to the column number.
+
+- **Number of independent variables**
+  - This method has two independent variables: the `Values2D` data object and the integer corresponding to the column index.
+
+- **Number of equivalence classes/partitions for each variable**
+  - **Data**
+    - There will be two partitions considered for this object: Valid data object and invalid data object (i.e., reference is a null pointer).
+  - **Column**
+    - There are two partitions: Valid and invalid integer.
+
+- **Number of test cases based on weak equivalence testing**
+  - The maximum number of partitions between the two variables is two. Therefore, two test cases will be used for weak equivalence testing.
+
+- **Select tests at or near boundary values of equivalence classes**
+  - There are no boundary values for either variable in this method.
+
+- **Consideration for robustness criteria**
+  - Since one of the two column partitions is for invalid inputs, robustness will be tested when we enter an invalid column index.
+
+- **Review test cases and remove redundancies**
+  - Test case 2 and 4 can be combined together due to having the same output. This makes 3 test cases total. Although based on weak equivalence, 
+we would only use two test cases, the decision table shows 3 different outputs, so three test cases will be performed to test all 3 different 
+outputs.
+  
+| Conditions        | Case 1                                      | Case 2                | Case 3              | Case 4                |
+|-------------------|---------------------------------------------|-----------------------|---------------------|-----------------------|
+| Values2D data     | Data is an array of primitive double values | Data is null          | Data is an array of primitive double values | Data is null          |
+| Column            | Column is a valid integer                   | Column is valid integer| Column is invalid integer | Column is an invalid integer |
+| Expected Output   | Sum of double values corresponding to column index | InvalidParameterException | 0                   | InvalidParameterException |
+
+#### calculateRowTotal 
+The `calculateRowTotal` method returns a double that corresponds to the sum of a particular row of values in a `Values2D` data object. The arguments in this method are the `Values2D` data object and an int value corresponding to the row number.
+
+- **Number of independent variables**
+  - This method has two independent variables: the `Values2D` data object and the integer corresponding to the row index.
+
+- **Number of equivalence classes/partitions for each variable**
+  - **Data**
+    - There will be two partitions considered for this object: Valid data object and invalid data object (i.e., reference is a null pointer).
+  - **Row**
+    - There are two partitions: Valid and invalid integer.
+
+- **Number of test cases based on weak equivalence testing**
+  - The maximum number of partitions between the two variables is two. Therefore, two test cases will be used for weak equivalence testing.
+
+- **Select tests at or near boundary values of equivalence classes**
+  - There are no boundary values for either variable in this method.
+
+- **Consideration for robustness criteria**
+  - Since one of the two row partitions is for invalid inputs, robustness will be tested when we enter an invalid row index.
+
+- **Review test cases and remove redundancies**
+  - Test case 2 and 4 can be combined together due to having the same output. This makes 3 test cases total. Although based on weak equivalence, we would only use two test cases, the decision table shows 3 different outputs, so three test cases will be performed to test all 3 different outputs.
+  
+| Conditions        | Case 1                                      | Case 2                | Case 3              | Case 4                |
+|-------------------|---------------------------------------------|-----------------------|---------------------|-----------------------|
+| Values2D data     | Data is an array of primitive double values | Data is null          | Data is an array of primitive double values | Data is null          |
+| Row               | Row is a valid integer                      | Row is valid integer  | Row is invalid integer | Row is an invalid integer |
+| Expected Output   | Sum of double values corresponding to row index | InvalidParameterException | 0                   | InvalidParameterException |
+
+#### createNumberArray 
+The method `createNumberArray(double[] data)` constructs an array of `Number` objects from an array of double primitives.
+
+- **Number of independent variables**
+  - There is one input variable, the method parameter `data`. This is an array of double primitives. Null is not permitted in this input variable (i.e. throughout the entire array).
+
+- **Number of equivalence classes/partitions for each variable:**
+  - There is just one partition for the `data` variable:
+    - `data` is an array of double primitives.
+
+- **Number of test cases based on weak equivalence testing:**
+  - The number of test cases is max | 1 | = 1 since there is only one independent variable.
+
+- **Select tests at or near boundary values of equivalence classes:**
+  - The test case when the data is an array of values that aren’t double primitives (i.e. if the array is `{5, -4, 0}`).
+  - The test case in which the data includes extremely large or small values (i.e. `data = {Double.MAX_VALUE, Double.MIN_VALUE}`).
+  - The test case in which the data has a null input.
+  - The test case when the data is an empty array.
+  - The test case when the data has just a single element.
+
+- **Consideration for robustness criteria**
+  - The above cases include robustness criteria since the function specifies that the data array must be an array of double primitives. The tests at or near boundary values above ensure that the robustness criteria are met because they are test cases where the data array is not an array of double primitives.
+
+- **Review test cases and remove redundancies**
+| Conditions        | Case 1                                | Case 2                          | Case 3         | Case 4                  | Case 5                                       | Case 6                         |
+|-------------------|---------------------------------------|---------------------------------|----------------|-------------------------|---------------------------------------------|--------------------------------|
+| Data              | Data is an array of primitive doubles | Data has just a single element  | Data is an empty array | Data has a null input | Data is an array of values that aren’t double primitives | Data is extremely large or small |
+| Outcome           | Array of Number objects              | Array of Number objects with just a single element | Empty array  | Throws InvalidParameterException | Throws InvalidParameterException           | Throws InvalidParameterException |
+
+    - In the above table, Case 1 and 2 can be combined because these are both the regular case where I am inputting an array of primitive doubles and getting an array of Number objects. Case 3 can be its own case because inputting an empty array shouldn’t create an error, but should just emit an empty array. Case 4-6 can also be combined because they are all cases where the wrong input is submitted (such as null), so it will test if an error message is emitted.
+
+#### createNumberArray2D 
+The method `createNumberArray2D(double[][] data)` constructs an array of arrays of `Number` objects from a corresponding structure containing double primitives.
+
+- **Number of independent variables**
+  - There is one input variable, the method parameter `data`. This is an array of arrays of double primitives. Null is not permitted in this input variable (i.e. throughout the entire array).
+
+- **Number of equivalence classes/partitions for each variable:**
+  - There is just one partition for the `data` variable:
+    - `data` is an array of arrays of double primitives.
+
+- **Number of test cases based on weak equivalence testing:**
+  - The number of test cases is max | 1 | = 1 since there is only one independent variable.
+
+- **Select tests at or near boundary values of equivalence classes:**
+  - The test case where the data is not an array of arrays, and just a single array.
+  - The test case when the data is an array of arrays of values that aren’t double primitives (i.e. if the array is `{5, -4, 0}`).
+  - The test case in which the data includes extremely large or small values (i.e. `data = {Double.MAX_VALUE, Double.MIN_VALUE}`).
+  - The test case in which the data has a null input.
+  - The test case when the data is an empty array of empty arrays.
+
+- **Consideration for robustness criteria**
+  - The above cases include robustness criteria since the function specifies that the data array must be an array of arrays of double primitives. The tests at or near boundary values above ensure that the robustness criteria are met because they are test cases where the data array is not an array of arrays of double primitives.
+
+- **Review test cases and remove redundancies**
+| Conditions        | Case 1                                | Case 2                        | Case 3                  | Case 4                  | Case 5                                       | Case 6                              |
+|-------------------|---------------------------------------|-------------------------------|-------------------------|-------------------------|---------------------------------------------|-------------------------------------|
+| Data              | Data is an array of arrays of primitive doubles | Data is an empty array or arrays | Data has a null input | Data is an array of arrays of values that aren’t double primitives | Data is extremely large or small | Data is not an array of arrays, and just a single array |
+| Outcome           | Array of arrays of Number objects    | Empty array of arrays         | Throws InvalidParameterException | Throws InvalidParameterException | Throws InvalidParameterException           | Throws InvalidParameterException    |
+
+    - In the above table, Case 1 is the regular case where I am inputting an array of arrays of primitive doubles and getting an array of arrays of Number objects. Case 2 can be its own case because inputting an empty array of empty arrays shouldn’t create an error, but should just emit an empty array or arrays. Case 3-6 can be combined because they are all cases where the wrong input is submitted (such as null), so it will test if an error message is emitted.
+
+#### getCumulativePercentages 
+This method `getCumulativePercentages(KeyedValues data)` returns a `KeyedValues` instance that contains the cumulative percentage values for the data in another `KeyedValues` instance. The cumulative percentage is each value's cumulative sum’s portion of the sum of all the values.
+
+- **Number of independent variables:**
+  - There is one input variable, the method parameter `data`. This is a `KeyedValues` instance containing key-value pairs.
+
+- **Number of equivalence classes/partitions for each variable:**
+  - There is just one partition for the `data` variable:
+    - `data` is a `KeyedValues` instance containing key-value pairs.
+
+- **Number of test cases based on weak equivalence testing:**
+  - The number of test cases is max | 1 | = 1 since there is only one independent variable.
+
+- **Select tests at or near boundary values of equivalence classes:**
+  - The test case where there is a single key-value pair.
+  - The test case where the data is null.
+  - The test case with an empty dataset (i.e. empty key-value pair).
+  - The test case where one of the values in the key-value pairs is 0.
+  - The test case where one or more of the values in the key-value pairs is negative.
+  - The test case where the values are floating point numbers.
+
+- **Consideration for robustness criteria:**
+  - The above cases include robustness criteria since the function specifies that the data must be a `KeyedValues` instance. The tests at or near boundary values above ensure that the robustness criteria are met because they are test cases where the data array is not a regular `KeyedValues` instance.
+
+- **Review test cases and remove redundancies**
+| Conditions        | Case 1                                | Case 2                                | Case 3                                | Case 4                                | Case 5                                | Case 6                  |
+|-------------------|---------------------------------------|---------------------------------------|---------------------------------------|---------------------------------------|---------------------------------------|-------------------------|
+| Data              | Data is a `KeyedValue` instance      | Data is a `KeyedValue` instance with a single key-value pair | Data is a `KeyedValue` instance that includes a 0 as a value | Data has floating point values for the key-value pairs | Data has a negative value in one of the key-value pairs | Data has a null input |
+| Outcome           | `KeyedValues` instance that contains the cumulative percentage values | `KeyedValues` instance that contains the cumulative percentage values | `KeyedValues` instance that contains the cumulative percentage values | `KeyedValues` instance that contains the cumulative percentage values | `KeyedValues` instance that contains the cumulative percentage values | Throws `InvalidParameterException` |
+
+    - In the above table, case 1-5 can be included into one test case because they all include test cases where a regular KeyedValues 
+    instance can be provided. Within this KeyedValues instance, we can include a 0, a floating-point number, and a negative number to 
+    test cases 3, 4 and 5. Case 6 will test a null input to see if an error message is emitted.
+    
+### Range Class Methods 
+#### contains
+The method `public boolean contains(double value)` returns `true` if the specified value is within the range and `false` otherwise. The 
+parameter `value` is the value to be tested. The boolean returned is `true` if the range object the method is called on contains the 
+specified value. A range class object consists of two parameters: `lower` and `upper`. Therefore, the return will be `true` if the 
+value is between `lower` and `upper`, or equal to `lower` or `upper`. 
+
+- **Number of independent variables:**
+  - There is one independent variable, the method parameter `value`.
+
+- **Number of equivalence classes/partitions for each variable:**
+  - There are three partitions for the `value` variable:
+    - `value` is below `lower` (not within the range)
+    - `value` is above `upper` (not within the range)
+    - `value` is between `lower` and `upper` (within the range)
+
+- **Number of test cases based on weak equivalence testing:**
+  - The number of test cases required for weak equivalence is max | 3 | = 3 since there is only one independent variable.
+
+- **Select tests at or near boundary values of equivalence classes:**
+  - The test cases in which `value` equals `lower`, and `value` equals `upper` represent boundary conditions.
+  - The test cases for `value` below `lower`, and `value` above `upper` could be tested with the following to reflect boundary conditions:
+    - `value = lower - 0.1`
+    - `value = upper + 0.1`
+  - The test case for `value` between `lower` and `upper` could be tested with one of the following conditions to reflect a boundary condition and maximize the potential for identifying an error:
+    - `value = lower + 0.1`
+    - `value = upper - 0.1`
+
+- **Consideration for robustness criteria:**
+  - The above cases include robustness criteria since `value` being out of the range is tested for multiple conditions including above `upper`, below `lower`, and equal to `upper` or `lower`.
+
+- **Review test cases and remove redundancies**
+| Conditions                                      | Case 1                             | Case 2         | Case 3                           | Case 4                          | Case 5         | Case 6         |
+|-------------------------------------------------|------------------------------------|----------------|----------------------------------|---------------------------------|----------------|----------------|
+| value                                           | value is below lower (lower – 0.1) | value equals lower | value is between lower and upper (lower + 0.1) | value is between lower and upper (upper – 0.1) | value equals upper | value is above upper (upper + 0.1) |
+| Outcome                                          | false                              | true           | true                             | true                            | true           | false          |
+
+-  In the table above, Case 2, Case 3, Case 4 and Case 5 could all be combined, given that these cases have the same outcome and are testing the same partition. However, to include robustness and have good coverage for testing of boundary conditions, both Case 2 and Case 5 will be included in the test suite and only Case 3 and Case 4 will be consolidated to remove redundancy. 
+
+#### combine 
+The method `public static Range combine(Range range1, Range range2)` returns a new range subsuming both input ranges. The parameters `range1` and `range2` are the values to be tested. If one of either `range1` or `range2` is null, the other range will be returned. If they are both null, the return will be null.
+
+- **Number of independent variables:**
+  - There are two input variables, the method parameters `range1` and `range2`. These input pairs are dependent on each other to determine the output of the method; therefore, they act as one pair of inputs (one independent variable).
+
+- **Number of equivalence classes/partitions for each variable:**
+  - There are two partitions for the `range1` variable:
+    - `range1` is null
+    - `range1` is non-null
+  - There are two partitions for the `range2` variable:
+    - `range2` is null
+    - `range2` is non-null
+  - This results in four partitions for the input variables `range1` and `range2` together:
+    - `range1` is null and `range2` is null
+    - `range1` is non-null and `range2` is null
+    - `range1` is null and `range2` is non-null
+    - `range1` is non-null and `range2` is non-null
+
+- **Number of test cases based on weak equivalence testing:**
+  - The number of test cases is max | 4 | = 4
+
+- **Select tests at or near boundary values of equivalence classes:**
+  - In the case where both `range1` and `range2` are non-null, there are several boundary conditions that could be tested:
+    - Condition 1: One range is fully contained within the second range. In this case, the result should be the larger range.
+    - Condition 2: The upper bound of one range is the same as the lower bound of the second range. The ranges should be combined to form a single range with the lower bound of the first range and the upper bound of the second range.
+    - Condition 3: The two ranges are the same. In this case, the result should be the same range.
+    - Condition 4: The two ranges overlap. The ranges should be combined into one range.
+    - Condition 5: The ranges do not overlap. The ranges should be combined so the result includes the lower bound of the lower range and the upper bound of the upper range.
+
+- **Consideration for robustness criteria:**
+  - There are five possible cases that could represent boundary conditions within the one equivalence class of `range1` and `range2` both being non-null. It may not be necessary to test all these conditions, since some of them are very similar and have the same outcomes. The cases are reviewed in the table below to determine which redundancies can be removed and decide on the number of test cases.
+
+- **Review test cases and remove redundancies**
+| Conditions | Case 1 | Case 2 | Case 3 | Case 4 | Case 5 | Case 6 | Case 7 | Case 8 |
+|------------|--------|--------|--------|--------|--------|--------|--------|--------|
+| range1     | null   | null   | non-null | non-null | non-null | non-null | non-null | non-null |
+| range2     | null   | non-null | null   | non-null | non-null | non-null | non-null | non-null |
+| other      | -      | -      | -      | range1 is within range2 | upper of range1 = lower of range2 | range1 = range2 | upper of range1 > lower of range2 | upper of range1 < lower of range2 |
+| Outcome    | null   | range2 | range1 | range2 | combined range | range2 | combined range | combined range |
+
+- In the table above, Case 4 and 6 could be combined, and Case 5, 7, and 8 could be combined, given that these cases have essentially the 
+same outcomes. By including one test case from each of these groups, there will be 2 test cases for the equivalence class of both range1 
+and range2 being non-null, which exceeds the weak equivalence testing criteria and includes some boundary values. This results in a 
+total of 5 test cases. 
+
+#### intersects 
+The method `public bool intersects(double lower, double upper)` is the method for the `Range` class which checks to see if the range intersects with the provided range.
+
+- **Number of independent variables:**
+    - There are two input variables: `double lower` and `double upper`.
+
+- **Number of equivalence classes/partitions for each variable:**
+    - For the `lower` variable:
+        - Valid: `lower` is < upper bound
+        - Valid: `lower` is = lower bound
+        - Invalid: `lower` is > upper bound
+    - For the `upper` variable:
+        - Valid: `upper` is > lower bound
+        - Valid: `upper` is = lower bound
+        - Invalid: `upper` is < lower bound
+    - This results in two partitions for the input variables `double lower` and `double upper`:
+        - If `upper` is >= `lower`, the reverse is also true, meaning `lower` is <= `upper`
+        - If `lower` is > `upper`, the reverse is also true, meaning `upper` is < `lower`
+
+- **Number of test cases based on weak equivalence testing:**
+    - The number of test cases is `max | 2, 2 | = 2`
+
+- **Select tests at or near boundary values of equivalence classes:**
+    - Case when `lower` and `upper` are fully overlapping with the range object.
+    - Case when ranges overlap partially.
+    - Case when ranges do not overlap.
+    - Case when ranges touch at a boundary. This happens when `upper` of the range being checked is equal to `lower`.
+
+- **Consideration for robustness criteria:**
+    - The cases which may be considered for robustness testing relate to handling the edge values for the `double` primitive type.
+    - Check the case where both ranges are a point.
+
+- **Review test cases and remove redundancies.**
+| Condition                                       | Case 1                                           | Case 2                                       | Case 3                           | Case 4                               | Case 5                       |
+|-------------------------------------------------|--------------------------------------------------|----------------------------------------------|----------------------------------|--------------------------------------|------------------------------|
+| obj                                             | Case when lower and upper are fully overlapping with the range object | Case when ranges overlap partially           | Case when ranges do not overlap  | Case when ranges touch at a boundary | Case when both ranges are a point |
+| outcome                                         | TRUE                                             | TRUE                                         | FALSE                            | TRUE                                 | TRUE                         |
+
+
+### shift 
+The method `public static Range shift(Range base, double delta, allowZeroCrossing = false)` returns a range the size of the input, shifted delta units to the right (positively). If `allowZeroCrossing` is false, any bound which crosses the zero mark after shifting from negative to positive, or positive to negative will become zero.
+
+- **Number of independent variables:**
+    - There are three input variables for the method `shift`: `base`, `delta`, and `allowZeroCrossing`.
+
+- **Number of equivalence classes/partitions for each variable:**
+    - For the `base` variable:
+        - Valid:
+            - base is a valid range
+            - base is fully in the positive range
+            - base is fully in the negative range
+            - base is a range where upper = lower = 0
+            - base is a range that overlaps 0 (spans negative and positive)
+        - Invalid:
+            - base cannot contain `Double.NaN`
+            - base does not contain a range where lower > upper
+    - For the `delta` variable:
+        - delta is negative
+        - delta is positive
+        - delta is zero
+    - For the `allowZeroCrossing` variable:
+        - allowZeroCrossing is not specified (defaults to false behavior)
+        - allowZeroCrossing is true
+        - allowZeroCrossing is false
+
+- **Number of test cases based on weak equivalence testing:**
+    - The number of test cases is `max | 4, 3, 3 | = 4`
+
+- **Select tests at or near boundary values of equivalence classes:**
+    - Select tests where the behavior of the method changes. Specifically, we will want to test the behavior of the interaction between `delta` and the `base` range:
+        - base fully in the positive domain, shifted delta units right
+        - base fully in the negative domain, shifted delta units left
+        - base fully in the negative domain, shifted delta units right, with a result that has only the upper crossing zero
+        - base fully in the positive domain, shifted delta units left, with a result that has only the lower portion crossing zero
+        - base fully in the positive domain, shifted delta units left, where both upper and lower cross zero
+        - base fully in the negative domain, shifted delta units right, where both upper and lower cross zero
+
+- **Consideration for robustness criteria:**
+    - If the range is the maximum or minimum value for `double`, `shift` method should handle overflow.
+    - There should be a test case to ensure that invalid ranges which contain `Double.NaN` are handled by throwing an `InvalidParameterException`.
+
+- **Review test cases and remove redundancies.**
+| Condition                                       | Case 1                  | Case 2                  | Case 3                  | Case 4                  | Case 5                               | Case 6                               | Case 7                               | Case 8                               | Case 9                               | Case 10                                     | Case 11                               | Case 12                                     |
+|-------------------------------------------------|-------------------------|-------------------------|-------------------------|-------------------------|--------------------------------------|--------------------------------------|--------------------------------------|--------------------------------------|--------------------------------------|--------------------------------------------|--------------------------------------|--------------------------------------------|
+| Base                                        | null                    | null                    | null                    | null                    | valid, base is (lower = upper) at (0,0) | valid, base is (lower = upper) at (0,0) | valid, all in positive domain        | valid, all in negative domain        | valid, all in positive domain          | valid, all in positive domain           | valid, all in negative domain            |
+| Delta                                       | positive                | positive                | negative                | negative                | positive                             | negative                             | positive                             | negative                             | delta = -(lower + 0.1)                | delta = -(lower + 0.1)                    | delta = upper + 0.1                   |
+| allowZeroCrossing                          | TRUE                    | FALSE                   | TRUE                    | FALSE                   | FALSE                                 | FALSE                                 | TRUE                                 | TRUE                                 | TRUE                                    | FALSE                                 | FALSE                                    |
+| Outcome                                    | InvalidParameterException | InvalidParameterException | InvalidParameterException | InvalidParameterException | range shifted delta units right       | range shifted delta units left        | range shifted delta units right       | range shifted delta units left        | range shifted delta units left          | range shifted delta units left, with lower set to 0 | range shifted delta units right, with upper set to 0 |
+
+- Cases 1, 2, 3, 4 can be covered with one test when base is null.
+- Case 5-12 tests different permutations of values for base and delta which will change the behaviour of the method. These are a result of the relationship between the lower and upper of the range, the delta, and the specified setting for allowZeroCrossing.
+
+### equals 
+The method `public boolean equals (java.lang.Object obj)` tests this object for equality with an arbitrary object `obj`. The parameter to be tested is the object of type `java.lang.Object`. The method returns `true` if the input object is an equivalent range.
+
+- **Number of independent variables:** 
+  - There is one input variable, the parameter, which is an object of type `java.lang.Object`.
+
+- **Number of equivalence classes/partitions for each variable:**
+  - There are four partitions for the `obj` variable:
+    - `obj` is a range object with null values
+    - `obj` is not a range object
+    - `obj` is a range object but not equivalent
+    - `obj` is a range object and equivalent
+
+- **Number of test cases based on weak equivalence testing:** 
+  - The number of test cases is `max | 4 | = 4`
+
+- **Select tests at or near boundary values of equivalence classes:** 
+  - There is a type boundary:
+    - Object is a range object
+    - Object is not a range object
+    - Object is null
+
+- **Consideration for robustness criteria:** 
+  - The method should correctly handle the case where the input object is the same instance as the current object. The method should return `true` if this object is checked for equality.
+  - The method should correctly handle objects which are derived from `Range`.
+  - The method should correctly handle checking instances of `Range` which contain `NaN` values in the range.
+
+- **Review test cases and remove redundancies** 
+| Condition     | Case 1                       | Case 2                    | Case 3   | Case 4     | Case 5              |
+|---------------|------------------------------|---------------------------|----------|------------|---------------------|
+| **obj**       | Range object but not equivalent | Range object but equivalent | Itself   | Null range | Not a range object  |
+| **outcome**   | FALSE                        | TRUE                      | TRUE     | FALSE      | FALSE               |
+
+- Each case relates to a different input object, resulting in one test for each partition.
+
+# 4 Test cases developed
+Based on the procedure described above in the Test Case Design section, the list of test cases developed is summarized in the following 
+table. 
+
+Table 2: Test Cases 
+
+
+
+
+
+# 5 How the team work/effort was divided and managed
+
+Text…
+
+# 6 Difficulties encountered, challenges overcome, and lessons learned
+
+Text…
+
+# 7 Comments/feedback on the lab itself
+
+Text…
