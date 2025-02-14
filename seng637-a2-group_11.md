@@ -191,29 +191,39 @@ The method `createNumberArray(double[] data)` constructs an array of `Number` ob
   - The number of test cases is max | 1 | = 1 since there is only one independent variable.
 
 - Select tests at or near boundary values of equivalence classes:
-  - The test case when the data is an array of values that aren’t double primitives (i.e. if the array is `{5, -4, 0}`).
-  - The test case in which the data includes extremely large or small values (i.e. `data = {Double.MAX_VALUE, Double.MIN_VALUE}`).
   - The test case in which the data has a null input.
   - The test case when the data is an empty array.
   - The test case when the data has just a single element.
+  - The test case in which the data includes extremely large or small values (i.e. `data = {Double.MAX_VALUE, Double.MIN_VALUE}`).
 
 - Consideration for robustness criteria
-  - The above cases include robustness criteria since the function specifies that the data array must be an array of double primitives. The tests at or near boundary values above ensure that the robustness criteria are met because they are test cases where the data array is not an array of double primitives.
+  - The above cases include robustness criteria since the function specifies that the data array must be an array of double primitives. The tests at or near boundary values above ensure that the robustness criteria are met because they are test cases where the data array is not a regular array of double primitives.
 
 - Review test cases and remove redundancies
 
-| Conditions                                | Case 1                                | Case 2                          | Case 3                | Case 4                      | Case 5                                       | Case 6                         |
-|-------------------------------------------|---------------------------------------|---------------------------------|-----------------------|-----------------------------|---------------------------------------------|--------------------------------|
-| Data                                      | Data is an array of primitive doubles | Data has just a single element  | Data is an empty array | Data has a null input       | Data is an array of values that aren’t double primitives | Data is extremely large or small |
-| Outcome                                   | Array of Number objects              | Array of Number objects with just a single element | Empty array           | Throws InvalidParameterException | Throws InvalidParameterException           | Throws InvalidParameterException |
+| Case  | Data                                      | Outcome                                       |
+|-------|------------------------------------------|----------------------------------------------|
+| 1     | Data is an array of primitive doubles   | Array of Number objects                     |
+| 2     | Data has just a single element          | Array of Number objects with just a single element |
+| 3     | Data is an empty array                  | Empty array                                 |
+| 4     | Data has a null input                   | Throws InvalidParameterException           |
+| 5     | Data is extremely large or small        | Array of Number objects with extremely large of small values |
 
-- In the above table, Case 1 and 2 can be combined because these are both the regular case where I am inputting an array of primitive doubles and getting an array of Number objects. Case 3 can be its own case because inputting an empty array shouldn’t create an error, but should just emit an empty array. Case 4-6 can also be combined because they are all cases where the wrong input is submitted (such as null), so it will test if an error message is emitted.
 
+- In the above table, I will start with writing two tests for case 1. The first test will be checking if the outcome does not have any null values for the length of the array. The next test is to check that the values are Number objects of the equivalent value as the input. I will then write a test for the remaining test cases, for a total of 6 test cases.
+- The following are the test cases that will be written for this function:
+    - testCreateNumberArray_ElementsNotNull
+    - testCreateNumberArray_ValuesEqual
+    - testCreateNumberArray_SingleElement
+    - testCreateNumberArray_EmptyArray
+    - testCreateNumberArray_NullInput
+    - testCreateNumberArray_LargeSmallValues
+  
 #### createNumberArray2D 
 The method `createNumberArray2D(double[][] data)` constructs an array of arrays of `Number` objects from a corresponding structure containing double primitives.
 
 - Number of independent variables
-  - There is one input variable, the method parameter `data`. This is an array of arrays of double primitives. Null is not permitted in this input variable (i.e. throughout the entire array).
+    - There is one input variable, the method parameter `data`. This is an array of arrays of double primitives. Null is not permitted in this input variable (i.e. throughout the entire array).
 
 - Number of equivalence classes/partitions for each variable:
   - There is just one partition for the `data` variable:
@@ -223,23 +233,33 @@ The method `createNumberArray2D(double[][] data)` constructs an array of arrays 
   - The number of test cases is max | 1 | = 1 since there is only one independent variable.
 
 - Select tests at or near boundary values of equivalence classes:
-  - The test case where the data is not an array of arrays, and just a single array.
-  - The test case when the data is an array of arrays of values that aren’t double primitives (i.e. if the array is `{5, -4, 0}`).
-  - The test case in which the data includes extremely large or small values (i.e. `data = {Double.MAX_VALUE, Double.MIN_VALUE}`).
   - The test case in which the data has a null input.
   - The test case when the data is an empty array of empty arrays.
+  - The test case when the data has just a single element
+  - The test case in which the data includes extremely large or small values (i.e. `data = {Double.MAX_VALUE, Double.MIN_VALUE}`).
 
 - Consideration for robustness criteria
   - The above cases include robustness criteria since the function specifies that the data array must be an array of arrays of double primitives. The tests at or near boundary values above ensure that the robustness criteria are met because they are test cases where the data array is not an array of arrays of double primitives.
 
 - Review test cases and remove redundancies
 
-| Conditions                                | Case 1                                | Case 2                          | Case 3                | Case 4                      | Case 5                                       | Case 6                              |
-|-------------------------------------------|---------------------------------------|---------------------------------|-----------------------|-----------------------------|---------------------------------------------|-------------------------------------|
-| Data                                      | Data is an array of arrays of primitive doubles | Data is an empty array or arrays | Data has a null input  | Data is an array of arrays of values that aren’t double primitives | Data is extremely large or small | Data is not an array of arrays, and just a single array |
-| Outcome                                   | Array of arrays of Number objects    | Empty array of arrays           | Throws InvalidParameterException | Throws InvalidParameterException           | Throws InvalidParameterException | Throws InvalidParameterException    |
+| Case  | Data                                          | Outcome                                              |
+|-------|----------------------------------------------|------------------------------------------------------|
+| 1     | Data is an array of arrays of primitive doubles | Array of arrays of Number objects                   |
+| 2     | Data has just a single element in a 2D array  | Array of arrays of Number objects with just a single element |
+| 3     | Data is an empty 2D array                     | Empty 2D array                                      |
+| 4     | Data has a null input                         | Throws InvalidParameterException                    |
+| 5     | Data contains extremely large or small values | Array of arrays of Number objects with extremely large of small values |
 
-- In the above table, Case 1 is the regular case where I am inputting an array of arrays of primitive doubles and getting an array of arrays of Number objects. Case 2 can be its own case because inputting an empty array of empty arrays shouldn’t create an error, but should just emit an empty array or arrays. Case 3-6 can be combined because they are all cases where the wrong input is submitted (such as null), so it will test if an error message is emitted.
+
+- In the above table, I will start with writing two tests for case 1. The first test will be checking if the outcome does not have any null values for the length of the array or arrays. The next test is to check that the values are Number objects of the equivalent value as the input. I will then write a test for the remaining test cases, for a total of 6 test cases.
+- The following are the test cases that will be written for this function:
+    - testCreateNumberArray2D_ElementsNotNull
+    - testCreateNumberArray2D_ValuesEqual
+    - testCreateNumberArray2D_SingleElement
+    - testCreateNumberArray2D_EmptyArray
+    - testCreateNumberArray2D_NullInput
+    - testCreateNumberArray2D_LargeSmallValues
 
 #### getCumulativePercentages 
 This method `getCumulativePercentages(KeyedValues data)` returns a `KeyedValues` instance that contains the cumulative percentage values for the data in another `KeyedValues` instance. The cumulative percentage is each value's cumulative sum’s portion of the sum of all the values.
@@ -255,7 +275,6 @@ This method `getCumulativePercentages(KeyedValues data)` returns a `KeyedValues`
   - The number of test cases is max | 1 | = 1 since there is only one independent variable.
 
 - Select tests at or near boundary values of equivalence classes:
-  - The test case where there is a single key-value pair.
   - The test case where the data is null.
   - The test case with an empty dataset (i.e. empty key-value pair).
   - The test case where one of the values in the key-value pairs is 0.
@@ -267,12 +286,21 @@ This method `getCumulativePercentages(KeyedValues data)` returns a `KeyedValues`
 
 - Review test cases and remove redundancies
 
-| Conditions        | Case 1                                      | Case 2                                          | Case 3                                        | Case 4                                        | Case 5                                        | Case 6                                      |
-|-------------------|---------------------------------------------|-------------------------------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|---------------------------------------------|
-| Data              | Data is a `KeyedValue` instance            | Data is a `KeyedValue` instance with a single key-value pair | Data is a `KeyedValue` instance that includes a 0 as a value | Data has floating point values for the key-value pairs | Data has a negative value in one of the key-value pairs | Data has a null input                       |
-| Outcome           | `KeyedValues` instance that contains the cumulative percentage values | `KeyedValues` instance that contains the cumulative percentage values | `KeyedValues` instance that contains the cumulative percentage values | `KeyedValues` instance that contains the cumulative percentage values | `KeyedValues` instance that contains the cumulative percentage values | Throws `InvalidParameterException`          |
+| Case | Data                                              | Outcome                                                   |
+|------|---------------------------------------------------|-----------------------------------------------------------|
+| 1    | Data is a regular `KeyedValues` instance         | `KeyedValues` instance that contains correct cumulative percentages |
+| 2    | Data contains a value that is `0`                | `KeyedValues` instance that contains correct cumulative percentages |
+| 3    | Data contains a negative value                   | `KeyedValues` instance that contains correct cumulative percentages |
+| 4    | Data contains a floating point number            | `KeyedValues` instance that contains correct cumulative percentages |
+| 5    | Data contains a `null` value                     | Throws `InvalidParameterException`                        |
+| 6    | Data is an empty `KeyedValues` instance          | Empty `KeyedValues` instance                              |
 
-- In the above table, case 1-5 can be included into one test case because they all include test cases where a regular `KeyedValues` instance can be provided. Within this `KeyedValues` instance, we can include a 0, a floating-point number, and a negative number to test cases 3, 4, and 5. Case 6 will test a null input to see if an error message is emitted. 
+- In the above table, case 1 will be the first test case. Case 2-4 will then be another test case where we test an array with a 0, negative number, and a floating point. Case 5 and 6 will then each have their own test case. Thus, there will be a total of 4 test cases
+- The following are the test cases that will be written for this function:
+    - testGetCumulativePercentages_ValidData
+    - testGetCumulativePercentages_ZeroNegativeAndFloatingValues
+    - testGetCumulativePercentages_NullInput
+    - testGetCumulativePercentages_EmptyKeyValues
     
 ### Range Class Methods 
 #### contains
@@ -533,20 +561,27 @@ Table 2: Test Cases
 | 33 | Range          | equals                  | test_not_a_range_object                | This test corresponds to the case where the input is not a range object.                                                                                                                                   | obj = "Not a Range"                                                        | FALSE                         |
 | 34 | Range          | equals                  | test_derived_range_object              | This test corresponds to the case where the input is a derived range object.                                                                                                                               | obj = DerivedRange(1.0, 5.0)                                               | TRUE                          |
 | 35 | Range          | equals                  | test_range_with_nan_values             | This test corresponds to the case where the range contains NaN values.                                                                                                                                     | obj = Range(Double.NaN, Double.NaN)                                        | TRUE                          |
-| 36 | DataUtilities  | createNumberArray       | test_data_array_with_doubles           | This test corresponds to the partition where data is an array of primitive doubles.                                                                                                                        | data = {5.5, 0.0, -7.2}                                                    | {Number(5.5), Number(0.0), Number(-7.2)} |
-| 37 | DataUtilities  | createNumberArray       | test_data_empty_array                  | This test corresponds to the partition where data is an empty array                                                                                                                                        | data = {}                                                                  | {}                            |
-| 38 | DataUtilities  | createNumberArray       | test_data_null                         | This test corresponds to the partition where data is null                                                                                                                                                  | data = null                                                                | Throws InvalidParameterException |
-| 39 | DataUtilities  | createNumberArray2D     | test_data_array_of_arrays_double       | This test corresponds to the partition where data is an array of arrays of primitive doubles                                                                                                               | data = {{5.5, 0.0, -7.2} , {-12.6, 3.2, 105.6}}                            | {Number(5.5), Number(0.0), Number(-7.2), {Number(-12.6), Number(3.2),Number(105.6)}} |
-| 40 | DataUtilities  | createNumberArray2D     | test_data_empty_array_of_arrays        | This test corresponds to the partition where data is an array of arrays of empty arrays                                                                                                                    | data = { {} , {} }                                                         | { {} , {} }                   |
-| 41 | DataUtilities  | createNumberArray2D     | test_data_null_array_of_arrays         | This test corresponds to the partition where data is null                                                                                                                                                  | data = null                                                                | Throws InvalidParameterException |
-| 42 | DataUtilities  | getCumulativePercentages| test_data_key_values_pairs             | This test corresponds to the partition where data is a regular KeyValues pair instance.                                                                                                                    | data = { {0, 4} , {1, 2.5} , {2, 0} , {3, 4.5} , {4, -1} }                 | { {0, 0.4} , {1, 0.65} , {2, 0.65} , {3, 1.1} , {4,1.0} } |
-| 43 | DataUtilities  | getCumulativePercentages| test_data_key_values_null              | This test corresponds to the partition where data is null.                                                                                                                                                 | data = null                                                                | Throws InvalidParameterException |
-| 44 | DataUtilities  | calculateColumnTotal    | test_valid_data_and_column             | This test corresponds to the partition where the data object is valid and column is a valid integer                                                                                                        | Data = [[1, 2], [3, 4]], Column = 1                                        | 6                             |
-| 45 | DataUtilities  | calculateColumnTotal    | test_invalid_data_and_valid_column     | This test corresponds to the data object being null and the column being a valid integer                                                                                                                   | Data = null, Column = 0                                                    | InvalidParameterException      |
-| 46 | DataUtilities  | calculateColumnTotal    | test_valid_data_and_invalid_column     | This test corresponds to the data object being valid while the column integer being invalid (in this case a negative integer)                                                                              | Data = [[1, 2], [3, 4]], Column = -10                                      | 0                             |
-| 47 | DataUtilities  | calculateRowTotal       | test_valid_data_and_row                | This test corresponds to the partition where the data object is valid and the row is a valid integer                                                                                                       | Data = [[1,2],[3,4]], Row = 1                                              | 7                             |
-| 48 | DataUtilities  | calculateRowTotal       | test_invalid_data_and_valid_row        | This test corresponds to the data object being null and the row being a valid integer                                                                                                                      | Data = null, Row = 0                                                       | InvalidParameterException      |
-| 49 | DataUtilities  | calculateRowTotal       | test_valid_data_and_invalid_row        | This test corresponds to the data object being valid while the row integer being invalid (in this case a negative integer)                                                                                 | Data = [[1,2],[3,4]], Row = -10                                            | 0                             |
+| 36 | DataUtilities  | createNumberArray       | testCreateNumberArray_ElementsNotNull           | This test checks that the elements in the array are not null.                                                                                                                          | data = {1.1, 2.2, 3.3}                                                    | {Number(1.1), Number(2.2), Number(3.3)} |
+| 37 | DataUtilities  | createNumberArray       | testCreateNumberArray_ValuesEqual                   | This test checks that the values in the created `Number` array are equal to the input values.                                                                                                                                        | data = {1.1, 2.2, 3.3}                                                                  | {Number(1.1), Number(2.2), Number(3.3)}                            |
+| 38 | DataUtilities  | createNumberArray       | testCreateNumberArray_SingleElement                         | This test checks the case where the input array contains just one element.                                                                                                                                                  | data = {5.5}                                                                | {Number(5.5)} |
+| 39 | DataUtilities  | createNumberArray       | testCreateNumberArray_EmptyArray                         | This test checks the case where the input array is empty.                                                                                                                                                 | data = {}                                                                | {} |
+| 40 | DataUtilities  | createNumberArray       | testCreateNumberArray_NullInput                         | This test checks the case where the input data is `null`.                                                                                                                                                 | data = null                                                                | Throws InvalidParameterException  |
+| 41 | DataUtilities  | createNumberArray       | testCreateNumberArray_LargeSmallValues                         | This test checks that the function works with very large and very small values.                                                                                                                                                | data = {Double.MAX_VALUE, Double.MIN_VALUE}                                                               | {Number.MAX_VALUE, Number.MIN_VALUE}  |
+| 42 | DataUtilities  | createNumberArray2D     | testCreateNumberArray2D_ElementsNotNull       | This test checks that the elements in the 2D array are not null.                                                                                                               | data = {{1.1, 2.2}, {3.3, 4.4}, {5.5, 6.6}}                            | {{Number(1.1), Number(2.2)}, {Number(3.3), Number(4.4)}, {Number(5.5), Number(6.6)}} |
+| 43 | DataUtilities  | createNumberArray2D     | testCreateNumberArray2D_ValuesEqual        | This test checks that the values in the 2D `Number` array are equal to the input values.                                                                                                                    | data = {{1.1, 2.2}, {3.3, 4.4}, {5.5, 6.6}}                                                         | {{Number(1.1), Number(2.2)}, {Number(3.3), Number(4.4)}, {Number(5.5), Number(6.6)}}                   |
+| 44 | DataUtilities  | createNumberArray2D     | testCreateNumberArray2D_SingleElement         | This test checks the case where the input 2D array contains just one element.                                                                                                                                                   | data = {{5.5}}                                                                | {Number(5.5)} |
+| 45 | DataUtilities  | createNumberArray2D     | testCreateNumberArray2D_EmptyArray         | This test checks the case where the input 2D array is empty.                                                                                                                                           | data = { {} , {} }                                                                | { {} , {} } |
+| 46 | DataUtilities  | createNumberArray2D     | testCreateNumberArray2D_NullInput          | This test checks the case where the input data is `null`.                                                                                                                                           | data = null                                                                | Throws InvalidParameterException |
+| 47 | DataUtilities  | getCumulativePercentages| testGetCumulativePercentages_ValidData             | This test checks the case where the data is valid and contains typical values for cumulative percentage calculation.                                                                                                                    | data = { {0, 5} , {1, 9} , {2, 2} }                 | { {0, 0.3125} , {1, 0.875} , {2, 1.0} } |
+| 48 | DataUtilities  | getCumulativePercentages| testGetCumulativePercentages_ZeroNegativeAndFloatingValues              | This test checks the case where the data contains zero, negative, and floating point values.                                                                                                                                                 | data = { {0, 0} , {1, -4.5} , {2, 3.2} }                                                                | { {0, 0.0} , {1, 3.4615} , {2, 1.0} } |
+| 49 | DataUtilities  | getCumulativePercentages| testGetCumulativePercentages_NullInput              | This test checks the case where the input data is `null`.                                                                                                                                                  | data = null                                                              | Throws InvalidParameterException |
+| 50 | DataUtilities  | getCumulativePercentages| testGetCumulativePercentages_EmptyKeyValues              | This test checks the case where the input data is an empty `KeyedValues` instance.                                                                                                                                                  | data = { }                                                             | {} |
+| 51 | DataUtilities  | calculateColumnTotal    | test_valid_data_and_column             | This test corresponds to the partition where the data object is valid and column is a valid integer                                                                                                        | Data = [[1, 2], [3, 4]], Column = 1                                        | 6                             |
+| 52 | DataUtilities  | calculateColumnTotal    | test_invalid_data_and_valid_column     | This test corresponds to the data object being null and the column being a valid integer                                                                                                                   | Data = null, Column = 0                                                    | InvalidParameterException      |
+| 53 | DataUtilities  | calculateColumnTotal    | test_valid_data_and_invalid_column     | This test corresponds to the data object being valid while the column integer being invalid (in this case a negative integer)                                                                              | Data = [[1, 2], [3, 4]], Column = -10                                      | 0                             |
+| 54 | DataUtilities  | calculateRowTotal       | test_valid_data_and_row                | This test corresponds to the partition where the data object is valid and the row is a valid integer                                                                                                       | Data = [[1,2],[3,4]], Row = 1                                              | 7                             |
+| 55 | DataUtilities  | calculateRowTotal       | test_invalid_data_and_valid_row        | This test corresponds to the data object being null and the row being a valid integer                                                                                                                      | Data = null, Row = 0                                                       | InvalidParameterException      |
+| 56 | DataUtilities  | calculateRowTotal       | test_valid_data_and_invalid_row        | This test corresponds to the data object being valid while the row integer being invalid (in this case a negative integer)                                                                                 | Data = [[1,2],[3,4]], Row = -10                                            | 0                             |
 
 
 
