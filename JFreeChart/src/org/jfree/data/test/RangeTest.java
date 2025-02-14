@@ -91,7 +91,7 @@ public class RangeTest {
     // Test Case 8: Test method combine(Range range1, Range range2) for the partition in which range1 is non-null and range2 is null
     @Test
     public void testCombine_Range1NonNullRange2Null() {
-    	assertEquals("Combined range of (15.0, 25.0) and null should be equal to (15.0, 25.0)", exampleRange3, Range.combine(exampleRange3, null));
+    	assertEquals("Combined range of null and (15.0, 25.0) should be equal to (15.0, 25.0)", exampleRange3, Range.combine(exampleRange3, null));
     }
   
     
