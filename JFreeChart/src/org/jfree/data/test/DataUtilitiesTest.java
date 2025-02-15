@@ -522,7 +522,22 @@ public class DataUtilitiesTest extends DataUtilities {
 
 	@After
 	public void tearDown() {
-		// Not Required
+		context_values2d = null;
+		mockData_values2d = null; 
+		context_keyed = null;
+        	mockData_keyed = null;
+        
+        	input1 = null;
+        	input2 = null;
+        	input3 = null;
+        	input4 = null;
+        	input5 = null;
+        	input6 = null;
+        	input7 = null;
+        	input8 = null;
+        	input9 = null; 
+        	input10 = null;
+        	input11 = null;
 	}
 
 	@AfterClass
