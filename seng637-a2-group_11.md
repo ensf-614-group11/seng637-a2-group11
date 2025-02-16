@@ -584,6 +584,10 @@ Table 2: Test Cases
 | 56 | DataUtilities  | calculateRowTotal       | test_invalid_data_and_valid_row        | This test corresponds to the data object being null and the row being a valid integer                                                                                                                      | Data = null, Row = 0                                                       | InvalidParameterException      |
 | 57 | DataUtilities  | calculateRowTotal       | test_valid_data_and_invalid_row        | This test corresponds to the data object being valid while the row integer being invalid (in this case a negative integer)                                                                                 | Data = [[1,2],[3,4]], Row = -10                                            | 0                             |
 
+## Discussion on the benefits and drawbacks of using Mocking
+
+
+## Test Results 
 
 
 
