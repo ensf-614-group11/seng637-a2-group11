@@ -586,9 +586,133 @@ Table 2: Test Cases
 
 ## Discussion on the benefits and drawbacks of using Mocking
 
+Mocking is a powerful technique in unit testing that allows us to isolate the functionality of the method under test by replacing dependencies with controlled, simulated objects. In our JUnit 4 tests, we used mocking to test functions that rely on Values2D and KeyedValues, enabling us to define the exact behavior of these dependencies without requiring a real implementation.
+
+One of the key benefits of using mocking is improved test isolation. For example, in our testValidDataAndColumn test, we mocked Values2D to ensure that the method calculateColumnTotal was only tested for its ability to sum column values, rather than depending on the behavior of Values2D itself. This isolation makes it easier to pinpoint failures, as any issues in the test can be attributed to the method under test rather than external dependencies. Additionally, mocking allows us to simulate edge cases and uncommon scenarios that may be difficult to create with real data, such as handling null inputs or unexpected return values. This helps improve test coverage and ensures our code is robust against different inputs.
+
+Another advantage of mocking is its ability to improve test performance. If we relied on real database queries or complex data structures, running unit tests would be slower and less efficient. By using mocks, our tests execute quickly since they only process predefined return values rather than performing actual computations or lookups. Moreover, mocking ensures that our tests remain deterministic, meaning they always produce the same results regardless of external factors.
+
+However, mocking also has drawbacks. One limitation is that it does not test the real implementation of dependencies, which can lead to false positives—tests passing because the mock behaves as expected, even if the real dependency contains a bug. For example, in our testGetCumulativePercentages_ValidData test, we mocked KeyedValues to return specific keys and values, ensuring the cumulative percentages were calculated correctly. While this verified our method’s logic, it did not test whether KeyedValues correctly retrieves and stores values from a real implementation. As a result, our tests might pass even if KeyedValues has an underlying issue.
+
+Additionally, maintaining mocks can be cumbersome as the test suite grows. Every time the implementation of the dependent class changes, we may need to update our mock expectations accordingly. If we define many mock behaviors for a method, our tests may become difficult to read and maintain, reducing clarity. Overuse of mocking can also lead to fragile tests, where minor changes in the mocked behavior cause multiple test failures, even when the actual application logic remains correct.
+
+In summary, mocking is a valuable tool for ensuring test isolation, improving performance, and simulating various conditions. However, it comes with trade-offs, including the risk of false positives, maintenance overhead, and limited coverage of real-world behavior. While it is useful for unit tests, it should be complemented with integration tests that verify the interaction of real dependencies to ensure comprehensive validation of the system.
 
 ## Test Results 
 
+Here we will list the results of all the tests performed on each method, and a disucssion about what we learned about the method and any defects found.
+
+### contains
+
+| Test Case # | Class  | Test Case Name                         | Pass/Failure | Failure Message |
+|------------|--------|--------------------------------------|-------------|----------------|
+| 1          | range  | testContains_ValueWithinRange()     |             |                |
+| 2          | range  | testContains_ValueEqualtoLower()    |             |                |
+| 3          | range  | testContains_ValueEqualtoUpper()    |             |                |
+| 4          | range  | testContains_ValueBelowRange()      |             |                |
+| 5          | range  | testContains_ValueAboveRange()      |             |                |
+
+### combine
+
+| Test Case # | Class  | Test Case Name                          | Pass/Failure | Failure Message |
+|------------|--------|-----------------------------------------|-------------|----------------|
+| 6          | range  | testCombine_BothRangesNull()           |             |                |
+| 7          | range  | testCombine_Range1NullRange2NonNull    |             |                |
+| 8          | range  | testCombine_Range1NonNullRange2Null    |             |                |
+| 9          | range  | testCombine_Range1WithinRange2         |             |                |
+| 10         | range  | testCombine_Range1AndRange2DoNotOverlap |             |                |
+
+### intersects
+
+| Test Case # | Class  | Test Case Name                    | Pass/Failure | Failure Message |
+|------------|--------|-----------------------------------|-------------|----------------|
+| 11         | range  | test_lower_greater_upper         |             |                |
+| 12         | range  | test_full_overlap               |             |                |
+| 13         | range  | test_partial_overlap            |             |                |
+| 14         | range  | test_no_overlap                 |             |                |
+| 15         | range  | test_touching_lower_boundary    |             |                |
+| 16         | range  | test_touching_upper_boundary    |             |                |
+| 17         | range  | test_range_equal_to_point       |             |                |
+
+### shift
+
+| Test Case # | Class  | Test Case Name                            | Pass/Failure | Failure Message |
+|------------|--------|-------------------------------------------|-------------|----------------|
+| 18         | range  | test_zero_range_positive_delta           |             |                |
+| 19         | range  | test_zero_range_negative_delta           |             |                |
+| 20         | range  | test_positive_range_positive_delta       |             |                |
+| 21         | range  | test_negative_range_negative_delta       |             |                |
+| 22         | range  | test_positive_range_cross_zero_lower     |             |                |
+| 23         | range  | test_positive_range_cross_zero_lower_allowed |             |                |
+| 24         | range  | test_negative_range_cross_zero_upper     |             |                |
+| 25         | range  | test_negative_range_cross_zero_upper_allowed |             |                |
+| 26         | range  | test_upper_range_max_double_positive_delta |             |                |
+| 27         | range  | test_lower_range_min_double_negative_delta |             |                |
+
+### equals 
+
+| Test Case # | Class  | Test Case Name               | Pass/Failure | Failure Message |
+|------------|--------|-----------------------------|-------------|----------------|
+| 29         | range  | test_not_equivalent_range   |             |                |
+| 30         | range  | test_equivalent_range       |             |                |
+| 31         | range  | test_itself                 |             |                |
+| 32         | range  | test_null_range             |             |                |
+| 33         | range  | test_not_a_range_object     |             |                |
+| 34         | range  | test_derived_range_object   |             |                |
+| 35         | range  | test_range_with_nan_values  |             |                |
+
+### createNumberArray
+
+| Test Case # | Class         | Test Case Name                          | Pass/Failure | Failure Message                                                      |
+|-------------|---------------|-----------------------------------------|--------------|----------------------------------------------------------------------|
+| 36          | DataUtilities | testCreateNumberArray_ElementsNotNull  | Failure      | java.lang.AssertionError: Element at index 2 should not be null      |
+| 37          | DataUtilities | testCreateNumberArray_ValuesEqual      | Failure      | java.lang.AssertionError: Test failed: Null value encountered in result array. |
+| 38          | DataUtilities | testCreateNumberArray_SingleElement    | Failure      | java.lang.AssertionError: Element at index 0 should not be null      |
+| 39          | DataUtilities | testCreateNumberArray_EmptyArray       | Pass         |                                                                      |
+| 40          | DataUtilities | testCreateNumberArray_NullInput        | Failure      | java.lang.AssertionError: Unexpected exception thrown: java.lang.IllegalArgumentException |
+| 41          | DataUtilities | testCreateNumberArray_LargeSmallValues | Failure      | java.lang.AssertionError: Element at index 1 should not be null      |
+
+The test results reveal a key issue with the createNumberArray method: the array it returns is consistently one element shorter than expected, with the last element being null. The testCreateNumberArray_ValuesEqual function confirms that while the values are correctly assigned, the array length is incorrect. The method also handles the empty array case correctly by returning an empty array. However, for null inputs, the method throws an IllegalArgumentException instead of the expected InvalidParameterException as per the JavaDocs. The large and small value test simply reiterated the issue of the shorter array.
+
+### createNumberArray2D 
+
+| Test Case # | Class         | Test Case Name                            | Pass/Failure | Failure Message                                                      |
+|-------------|---------------|-------------------------------------------|--------------|----------------------------------------------------------------------|
+| 42          | DataUtilities | testCreateNumberArray2D_ElementsNotNull  | Failure      | java.lang.AssertionError: Element at position [0][1] should not be null |
+| 43          | DataUtilities | testCreateNumberArray2D_ValuesEqual      | Failure      | java.lang.AssertionError: Test failed: Null value encountered in result array. |
+| 44          | DataUtilities | testCreateNumberArray2D_SingleElement    | Failure      | java.lang.AssertionError: Element at position [0][0] should not be null |
+| 45          | DataUtilities | testCreateNumberArray2D_EmptyArray       | Pass         |                                                                      |
+| 46          | DataUtilities | testCreateNumberArray2D_NullInput        | Failure      | java.lang.AssertionError: Unexpected exception thrown: java.lang.IllegalArgumentException |
+| 47          | DataUtilities | testCreateNumberArray2D_LargeSmallValues | Failure      | java.lang.AssertionError: Element at position [0][1] should not be null |
+
+The test results reveal a similar issue with the createNumberArray2D method as the one found in the createNumberArray method: the array returned is shorter than expected, with null values appearing in certain positions. Specifically, the testCreateNumberArray2D_ElementsNotNull and testCreateNumberArray2D_ValuesEqual tests show that although values are assigned correctly, certain elements are missing or null. The method successfully handles the empty array case by returning an empty array. For null inputs, however, it throws an IllegalArgumentException instead of the expected InvalidParameterException as specified in the JavaDocs. Finally, the large and small value test reinforced the issue of missing values in the 2D array.
+
+### getCumulativePercentages
+
+| Test Case # | Class         | Test Case Name                                     | Pass/Failure | Failure Message                                                      |
+|-------------|---------------|----------------------------------------------------|--------------|----------------------------------------------------------------------|
+| 48          | DataUtilities | testGetCumulativePercentages_ValidData             | Failure      | java.lang.AssertionError: First cumulative percentage should be 0.3125 expected:<0.3125> but was:<0.45454545454545453> |
+| 49          | DataUtilities | testGetCumulativePercentages_ZeroNegativeAndFloatingValues | Pass         |                                                                      |
+| 50          | DataUtilities | testGetCumulativePercentages_NullInput             | Failure      | java.lang.AssertionError: Unexpected exception thrown: java.lang.IllegalArgumentException |
+| 51          | DataUtilities | testGetCumulativePercentages_EmptyKeyValues        | Pass         |                                                                      |
+
+The test results reveal an issue with how cumulative percentages are calculated in the getCumulativePercentages method. Specifically, the test with valid positive numbers (KeyedValues with keys 0, 1, 2 and values 5, 9, 2) showed an error in the first cumulative percentage, indicating a problem with the math. Upon further investigation, it became clear that the first value in the key-value pair was not being included in the denominator for the cumulative percentage calculation. This explains why the test with zero, negative, and floating-point values passed—it allowed the calculation to work because the first value (zero) was omitted from the denominator. The issue was confirmed by comparing the expected value with and without the first value in the denominator. Additionally, the null input test threw the wrong exception, and the empty key-value test worked as expected.
+
+### calculateColumnTotal
+
+| Test Case # | Class         | Test Case Name                                  | Pass/Failure | Failure Message |
+|------------|--------------|-----------------------------------------------|-------------|----------------|
+| 52         | DataUtilities | test_valid_data_and_column                    |             |                |
+| 53         | DataUtilities | test_invalid_data_and_valid_column            |             |                |
+| 54         | DataUtilities | test_valid_data_and_invalid_column            |             |                |
+
+### calculateRowTotal
+
+| Test Case # | Class         | Test Case Name                                  | Pass/Failure | Failure Message |
+|------------|--------------|-----------------------------------------------|-------------|----------------|
+| 55         | DataUtilities | test_valid_data_and_row                       |             |                |
+| 56         | DataUtilities | test_invalid_data_and_valid_row               |             |                |
+| 57         | DataUtilities | test_valid_data_and_invalid_row               |             |                |
 
 
 # 5 How the team work/effort was divided and managed
