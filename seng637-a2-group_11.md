@@ -592,8 +592,15 @@ Table 2: Test Cases
 
 
 # 5 How the team work/effort was divided and managed
+Before beginning the lab, all members of the team completed Section 2.1 of the Lab instructions to ensure that everyone was familiar with working in Eclipse, the system under test and the workflow for creating and running JUnit tests.
 
-Text…
+As mentioned in the Test Plan above, the work for this lab was completed in pairs. Steven Au and Laurel Flanagan worked on the test case design and developing test case code for 5 methods from the Range class, and Austen Zhang and Rhys Wickens worked on test case design and developing test case code for the 5 methods from the Data Utilities class. 
+
+Each pair divided up the methods from their class and each person designed tests cases for their portion of the methods. Then within each pair, each person reviewed the other person's test case design and provided feedback. After both people in the pair were satisfied with the test case design, then each person developed the code using the JUnit framework for the test cases that they had designed. Another review was completed within the pairs after developing the code for the test cases. The test results were reviewed together as a team. 
+
+Completing the test case design and development parts of the lab in pairs was efficient and allowed for a more thorough review to ensure that all the requirements for the methods specfied in the Javadoc were covered in the test cases. It also helped to provide more robust test cases based on different individual interpretations of the equivalence class partitioning and boundary value analysis. 
+
+The reporting sections of the lab were split evenly among the team members. 
 
 # 6 Difficulties encountered, challenges overcome, and lessons learned
 
