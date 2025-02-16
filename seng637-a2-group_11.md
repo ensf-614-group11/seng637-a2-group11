@@ -606,21 +606,23 @@ Here we will list the results of all the tests performed on each method, and a d
 
 | Test Case # | Class  | Test Case Name                         | Pass/Failure | Failure Message |
 |------------|--------|--------------------------------------|-------------|----------------|
-| 1          | range  | testContains_ValueWithinRange()     |             |                |
-| 2          | range  | testContains_ValueEqualtoLower()    |             |                |
-| 3          | range  | testContains_ValueEqualtoUpper()    |             |                |
-| 4          | range  | testContains_ValueBelowRange()      |             |                |
-| 5          | range  | testContains_ValueAboveRange()      |             |                |
+| 1          | range  | testContains_ValueWithinRange()      | Pass         |                |
+| 2          | range  | testContains_ValueEqualtoLower()    | Pass      |                |
+| 3          | range  | testContains_ValueEqualtoUpper()    | Pass          |                |
+| 4          | range  | testContains_ValueBelowRange()      | Pass            |                |
+| 5          | range  | testContains_ValueAboveRange()      | Pass            |                |
 
 ### combine
 
 | Test Case # | Class  | Test Case Name                          | Pass/Failure | Failure Message |
 |------------|--------|-----------------------------------------|-------------|----------------|
-| 6          | range  | testCombine_BothRangesNull()           |             |                |
-| 7          | range  | testCombine_Range1NullRange2NonNull    |             |                |
-| 8          | range  | testCombine_Range1NonNullRange2Null    |             |                |
-| 9          | range  | testCombine_Range1WithinRange2         |             |                |
-| 10         | range  | testCombine_Range1AndRange2DoNotOverlap |             |                |
+| 6          | range  | testCombine_BothRangesNull()           | Pass            |                |
+| 7          | range  | testCombine_Range1NullRange2NonNull    | Pass            |                |
+| 8          | range  | testCombine_Range1NonNullRange2Null    | Pass             |                |
+| 9          | range  | testCombine_Range1WithinRange2         | Pass             |                |
+| 10         | range  | testCombine_Range1AndRange2DoNotOverlap | Fail             | java.lang.AssertionError: Exception should not be thrown, but Illegal Argument Exception was thrown: Range(double, double): require lower (45.5) <= upper (-10.5). | 
+
+The test results for Test Case 10 demonstrated an error with the combine method when the lower and upper values associated with range1 and range2 being tested do not overlap at all. In this case, according to the description of the method in the Javadoc, the combined range of (-10.5, 5.5) and (45.5, 75.5) should result in (-10.5, 75.5), which subsumes both of the ranges. However, the use of the combine method on this test case resulted in an Illegal Argument Exception stating that lower (which is 45.5) must be less than or equal to upper (which is -10.5). This reveals an error in the way the lower and upper values of the new combined range are being defined, since the new range should consist of a lower value of -10.5 and an upper value of 75.5. A try/catch statement was added to the test to allow the test to fail gracefully if an Illegal Argument Exception is thrown. The method successfully handles cases where the ranges do overlap, or one of the given ranges is null.   
 
 ### intersects
 
