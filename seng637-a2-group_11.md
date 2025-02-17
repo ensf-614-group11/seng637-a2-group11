@@ -705,7 +705,7 @@ The test results reveal an issue with how cumulative percentages are calculated 
 | Test Case # | Class         | Test Case Name                                  | Pass/Failure | Failure Message |
 |------------|--------------|-----------------------------------------------|-------------|----------------|
 | 52         | DataUtilities | testValidDataAndColumn                    |   Pass      |                |
-| 53         | DataUtilities | testInvalidDataAndValidColumn             |   Fail      |                |
+| 53         | DataUtilities | testInvalidDataAndValidColumn             |   Fail      |    java.lang.AssertionError: Expected InvalidParameterException but got NullPointerException            |
 | 54         | DataUtilities | testValidDataAndInvalidColumn             |   Fail      |                |
 
 ### calculateRowTotal
