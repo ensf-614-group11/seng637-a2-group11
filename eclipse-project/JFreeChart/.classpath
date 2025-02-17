@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <!-- JRE Container -->
+    <classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+    
+    <!-- Source Folder -->
+    <classpathentry kind="src" path="src"/>
+    
+    <!-- JAR Dependencies (relative paths) -->
+    <classpathentry exported="true" kind="lib" path="lib/jfreechart.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/bsh-core-2.0b4.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/cglib-2.1_3-src.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/cglib-nodep-2.1_3.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/gnujaxp.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/hamcrest-core-1.1.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/hamcrest-library-1.1.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/jcommon-1.0.0-rc1-cvs.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/jcommon-1.0.5.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/junit.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/objenesis-1.0.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/servlet.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/jMock/jmock-2.5.1.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/jMock/jmock-junit4-2.5.1.jar"/>
+    <classpathentry exported="true" kind="lib" path="lib/jMock/jmock-script-2.5.1.jar"/>
+    
+    <!-- Output Folder -->
+    <classpathentry kind="output" path="bin"/>
+</classpath>
