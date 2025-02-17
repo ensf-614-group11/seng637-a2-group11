@@ -12,7 +12,11 @@
 
 # 1 Introduction
 
-Text…
+In this lab, we perform black box software testing on an application called JFreeChart. Specifically, we test five methods from the DataUtilities class and five methods from the Range class.
+
+We designed and implemented unit tests, designing test cases based on equivalence class partitioning. We also added test cases to test the boundary values of certain variables.
+
+To write and run the unit tests, we used JUnit 4, and Jmock to create the mock objects used to simulate objects used as arguments in the methods.
 
 # 2 Test Plan 
 The system under test is JFreeChart, an open-source Java framework for creating and displaying charts, including pie charts, 
