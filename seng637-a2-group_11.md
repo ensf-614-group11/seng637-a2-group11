@@ -743,9 +743,23 @@ The reporting sections of the lab were split evenly among the team members.
 
 # 6 Difficulties encountered, challenges overcome, and lessons learned
 
-In completing this lab, one of the main challenges we faced was in designing a test suite that did not contain an excessive number of test cases. It required careful planning and designing in order to select the tests which we felt would cover the main mechanisms of failure for the selected methods. After identifying the Test Cases and the boundary conditions around which testing should occur, it was up to the team member designing the test to select the appropriate parameters around boundary conditions. We experienced a situation where the approach to testing a method differed between team members. This highlights the challenge in testing where different people may have different intepretations or understandings. In overcoming this, it was very useful for pairs to discuss and review each others test cases, allowing everyone to gain insight into each person's unique understanding.
+1. Designing an efficient test suite
+- **Challenge**: Finding the optimal number of test cases which adequately covered the main mechanisms of failure.
+- **Approach**: Identify equivalence classes and boundary conditions. By identifying the variability in inputs, we select test cases that covered the main failure points.
 
-In running and executing tests, we learned that testers had to be precise in reviewing the test cases which passed and failed. It is important to ensure that the tests were written with confidence and precision in order to have trust in the test suite results. We also learned that Black box testing has its limitations. Without having access to the source code, you can only identify that there is an issue. In addition, without seeing the source code, it is difficult to know how certain edge cases are handled, especially if those edge cases represent unique cases in which the javadocs does not specify. We also learned that Black box testing is limited by the quality of the javadocs, if the specification of the method is unclear, the tester may incorrectly interpret the requirement. In the case of this lab, the JFreeChart documentation was clear and comprehensive.
+2. Selecting appropriate parameters
+- **Challenge**: Choosing the right parameters for boundary conditions was not always straightforward. 
+- **Approach**: Utilize javadoc specifications for the class to better understand the usage of the method, to select parameters which handled testing around the identified boundary conditions.
+
+3. Differing intepretations of test cases or boundaries
+- **Challenge**: We experienced a situation where the approach to testing a method differed between team members. This highlights the challenge in testing where different people may have different intepretations or understandings.
+- **Approach**: In overcoming this challenge, it was very useful for pairs to discuss and review each others test cases, allowing everyone to gain insight into each person's unique understanding.
+
+**Lessons Learned:**
+- We also learned that Black box testing has its limitations. Without having access to the source code, you can only identify that there is an issue. 
+- Without seeing the source code, it is difficult to know how certain edge cases are handled, especially if those edge cases represent unique cases in which the javadocs does not specify. 
+- Black box testing is limited by the quality of the javadocs, if the specification of the method is unclear, the tester may incorrectly interpret the requirement. In the case of this lab, the JFreeChart documentation was clear and comprehensive.
+- Testing requires a high attention to details. Tests written incorrectly can falsely flag issues which may not be present in implementation.
 
 # 7 Comments/feedback on the lab itself
 
