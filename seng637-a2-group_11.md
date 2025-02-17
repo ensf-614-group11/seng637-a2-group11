@@ -14,7 +14,7 @@
 
 In this lab, we perform black box software testing on JfreeChart, a Java chart library for developers to display professional quality charts in their applications. JFreeChart was provided to us as jar files, meaning we were able to run the application, however, we were not able to see the underlying code. Therefore, our tests are black box tests, as we are able to see the inputs and outputs of each method, but unable to see the underlying logic within the methods.
 
-In this lab, we designed and implemented unit tests, designing test cases based on equivalence class partitioning. We also added test cases to test the boundary values of certain variables.
+In this lab, we designed and implemented unit tests, designing test cases based on equivalence class partitioning. We also added test cases to test the boundary values of certain variables. This allowed us to identify test cases covering a broad range of valid and invalid inputs while keeping the number of test cases low.
 
 To write and run the unit tests, we used JUnit 4, and Jmock to create the mock objects used to simulate objects used as arguments in the methods.
 
