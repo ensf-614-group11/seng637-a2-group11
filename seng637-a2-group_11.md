@@ -631,41 +631,41 @@ The test results for Test Case 10 demonstrated an error with the combine method 
 
 | Test Case # | Class  | Test Case Name                    | Pass/Failure | Failure Message |
 |------------|--------|-----------------------------------|-------------|----------------|
-| 11         | Range  | testIntersects_LowerGreaterThanUpper         | **Failure** | Expected IllegalArgumentException but no exception was thrown. |
-| 12         | Range  | testIntersects_FullOverlap               | **Pass**    |                |
-| 13         | Range  | testIntersects_PartialOverlap            | **Pass**    |                |
-| 14         | Range  | testIntersects_NoOverlap                 | **Pass**    |                |
-| 15         | Range  | testIntersects_TouchingLowerBoundary    | **Failure** | The range (1.0, 4.0) should touch the lower boundary of (4.0, 6.0) |
-| 16         | Range  | testIntersects_TouchingUpperBoundary    | **Pass**    |                |
-| 17         | Range  | testIntersects_RangeEqualToPoint       | **Pass**    |                |
+| 11         | Range  | testIntersects_LowerGreaterThanUpper         | Failure | Expected IllegalArgumentException but no exception was thrown. |
+| 12         | Range  | testIntersects_FullOverlap               | Pass    |                |
+| 13         | Range  | testIntersects_PartialOverlap            | Pass    |                |
+| 14         | Range  | testIntersects_NoOverlap                 | Pass    |                |
+| 15         | Range  | testIntersects_TouchingLowerBoundary    | Failure | The range (1.0, 4.0) should touch the lower boundary of (4.0, 6.0) |
+| 16         | Range  | testIntersects_TouchingUpperBoundary    | Pass    |                |
+| 17         | Range  | testIntersects_RangeEqualToPoint       | Pass    |                |
 
 ### shift
 
 | Test Case # | Class  | Test Case Name                            | Pass/Failure | Failure Message |
 |------------|--------|-------------------------------------------|-------------|----------------|
-| 18         | Range  | testShift_RangeWithNaN           | **Pass**    |                |
-| 19         | Range  | testShift_ZeroRangePositiveDelta           | **Pass**    |                |
-| 20         | Range  | testShift_ZeroRangeNegativeDelta       | **Pass**    |                |
-| 21         | Range  | testShift_PositiveRangePositiveDelta       | **Pass**    |                |
-| 22         | Range  | testShift_NegativeRangeNegativeDelta     | **Failure** | The shifted range of (-5.0, -1.0) with delta -2.0 should be (-7.0, -3.0) expected:<Range[-5.0,-3.0]> but was:<Range[-3.0,-3.0]> |
-| 23         | Range  | testShift_PositiveRangeCrossZeroLower | **Pass**    |                |
-| 24         | Range  | testShift_PositiveRangeCrossZeroLowerAllowed | **Failure** | The shifted range of (1.0, 5.0) with delta -1.1 should be (-0.1, 3.9) expected:<Range[1.9,3.9]> but was:<Range[-0.10000000000000009,-0.10000000000000009]> |
-| 25         | Range  | testShift_NegativeRangeCrossZeroUpper     | **Failure** | The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.0) expected:<Range[-1.95,0.0]> but was:<Range[0.10000000000000009,0.10000000000000009]> |
-| 26         | Range  | testShift_NegativeRangeCrossZeroUpperAllowed | **Failure** | The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.1) expected:<Range[-1.9,0.1]> but was:<Range[0.10000000000000009,0.10000000000000009]> |
-| 27         | Range  | testShift_VeryLargeDoubles | **Pass**    |                |
-| 28         | Range  | testShift_VerySmallDoubles | **Pass**    |                |
+| 18         | Range  | testShift_RangeWithNaN           | Pass    |                |
+| 19         | Range  | testShift_ZeroRangePositiveDelta           | Pass    |                |
+| 20         | Range  | testShift_ZeroRangeNegativeDelta       | Pass    |                |
+| 21         | Range  | testShift_PositiveRangePositiveDelta       | Pass    |                |
+| 22         | Range  | testShift_NegativeRangeNegativeDelta     | Pass |                |
+| 23         | Range  | testShift_PositiveRangeCrossZeroLower | Pass    |                |
+| 24         | Range  | testShift_PositiveRangeCrossZeroLowerAllowed | Failure | The shifted range of (1.0, 5.0) with delta -1.1 should be (-0.1, 3.9) expected:<Range[1.9,3.9]> but was:<Range[-0.10000000000000009,-0.10000000000000009]> |
+| 25         | Range  | testShift_NegativeRangeCrossZeroUpper     | Failure | The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.0) expected:<Range[-1.95,0.0]> but was:<Range[0.10000000000000009,0.10000000000000009]> |
+| 26         | Range  | testShift_NegativeRangeCrossZeroUpperAllowed | Failure | The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.1) expected:<Range[-1.9,0.1]> but was:<Range[0.10000000000000009,0.10000000000000009]> |
+| 27         | Range  | testShift_VeryLargeDoubles | Pass    |                |
+| 28         | Range  | testShift_VerySmallDoubles | Pass    |                |
 
 ### equals 
 
 | Test Case # | Class  | Test Case Name               | Pass/Failure | Failure Message |
 |------------|--------|-----------------------------|-------------|----------------|
-| 29         | Range  | testEquals_NotEquivalentRange   | **Pass**    |                |
-| 30         | Range  | testEquals_EquivalentRange       | **Pass**    |                |
-| 31         | Range  | testEquals_Itself                 | **Pass**    |                |
-| 32         | Range  | testEquals_NullRange             | **Pass**    |                |
-| 33         | Range  | testEquals_NotARangeObject     | **Pass**    |                |
-| 34         | Range  | testEquals_DerivedRangeObject   | **Pass**    |                |
-| 35         | Range  | testEquals_RangeWithNaNValues  | **Failure** | The range (NaN, NaN) should be equal to (NaN, NaN) |
+| 29         | Range  | testEquals_NotEquivalentRange   | Pass    |                |
+| 30         | Range  | testEquals_EquivalentRange       | Pass    |                |
+| 31         | Range  | testEquals_Itself                 | Pass    |                |
+| 32         | Range  | testEquals_NullRange             | Pass    |                |
+| 33         | Range  | testEquals_NotARangeObject     | Pass    |                |
+| 34         | Range  | testEquals_DerivedRangeObject   | Pass    |                |
+| 35         | Range  | testEquals_RangeWithNaNValues  | Failure | The range (NaN, NaN) should be equal to (NaN, NaN) |
 
 ### createNumberArray
 
