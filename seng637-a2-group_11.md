@@ -706,15 +706,15 @@ The test results reveal an issue with how cumulative percentages are calculated 
 |------------|--------------|-----------------------------------------------|-------------|----------------|
 | 52         | DataUtilities | testValidDataAndColumn                    |   Pass      |                |
 | 53         | DataUtilities | testInvalidDataAndValidColumn             |   Fail      |    java.lang.AssertionError: Expected InvalidParameterException but got NullPointerException            |
-| 54         | DataUtilities | testValidDataAndInvalidColumn             |   Fail      |                |
+| 54         | DataUtilities | testValidDataAndInvalidColumn             |   Fail      |    java.lang.AssertionError: Expected to return 0 but got a IndexOutOfBoundsException            |
 
 ### calculateRowTotal
 
 | Test Case # | Class         | Test Case Name                                  | Pass/Failure | Failure Message |
 |------------|--------------|-----------------------------------------------|-------------|----------------|
-| 55         | DataUtilities | testValidDataAndRow                           |   Fail      |                |
-| 56         | DataUtilities | test_invalid_data_and_valid_row               |   Fail      |                |
-| 57         | DataUtilities | test_valid_data_and_invalid_row               |   Fail      |                |
+| 55         | DataUtilities | testValidDataAndRow                           |   Fail      |      java.lang.AssertionError: expected:<7.0> but was:<3.0>          |
+| 56         | DataUtilities | testInvalidDataAndValidRow               |   Fail      |        java.lang.AssertionError: Expected InvalidParameterException but got NullPointerException        |
+| 57         | DataUtilities | testValidDataAndInvalidRow               |   Fail      |      java.lang.AssertionError: Expected to return 0 but got a IndexOutOfBoundsException          |
 
 
 # 5 How the team work/effort was divided and managed
