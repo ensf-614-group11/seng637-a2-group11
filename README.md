@@ -12,7 +12,7 @@
 ### - `org.jfree.data.test.DataUtilitiesTest`
 
 # System Requirements
-- **Java SE Development Kit (JDK)**: Version 8 or higher.
+- **Java SE Development Kit (JDK)**: JavaSE-1.8
 - **Eclipse IDE**: Eclipse IDE for Java Developers (2023-12 or later recommended).
 - **JUnit**: Version 4.11 (compatible with Java SE 8).
 - **JMock**: Version 2.5.1 (compatible with JUnit 4.11).
