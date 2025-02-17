@@ -704,17 +704,17 @@ The test results reveal an issue with how cumulative percentages are calculated 
 
 | Test Case # | Class         | Test Case Name                                  | Pass/Failure | Failure Message |
 |------------|--------------|-----------------------------------------------|-------------|----------------|
-| 52         | DataUtilities | test_valid_data_and_column                    |             |                |
-| 53         | DataUtilities | test_invalid_data_and_valid_column            |             |                |
-| 54         | DataUtilities | test_valid_data_and_invalid_column            |             |                |
+| 52         | DataUtilities | testValidDataAndColumn                    |   Pass      |                |
+| 53         | DataUtilities | testInvalidDataAndValidColumn             |   Fail      |                |
+| 54         | DataUtilities | testValidDataAndInvalidColumn             |   Fail      |                |
 
 ### calculateRowTotal
 
 | Test Case # | Class         | Test Case Name                                  | Pass/Failure | Failure Message |
 |------------|--------------|-----------------------------------------------|-------------|----------------|
-| 55         | DataUtilities | test_valid_data_and_row                       |             |                |
-| 56         | DataUtilities | test_invalid_data_and_valid_row               |             |                |
-| 57         | DataUtilities | test_valid_data_and_invalid_row               |             |                |
+| 55         | DataUtilities | testValidDataAndRow                           |   Fail      |                |
+| 56         | DataUtilities | test_invalid_data_and_valid_row               |   Fail      |                |
+| 57         | DataUtilities | test_valid_data_and_invalid_row               |   Fail      |                |
 
 
 # 5 How the team work/effort was divided and managed
