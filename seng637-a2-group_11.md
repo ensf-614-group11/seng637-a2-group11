@@ -763,4 +763,8 @@ The reporting sections of the lab were split evenly among the team members.
 
 # 7 Comments/feedback on the lab itself
 
-Text…
+This lab was very useful to our learning because we were able to program and run our own tests using Junit. The hands-on nature of this lab made it so that we could consolidate the knowledge we've learned from class by going through the process once ourselves.
+
+One thing that would have been helpful is more guidance on how to create our test cases. While it was helpful to have the assignment be more free form, with us being able to create test cases how we like, it would be nice to see what is commonly accepted throughout the industry. In our assignment, we used weak equivalence classes and also added test cases to test boundary values.
+
+Also, it may also be useful to have a "reverse" version of the assignment where we are given unit tests and have to write methods in order to pass the unit tests. 
