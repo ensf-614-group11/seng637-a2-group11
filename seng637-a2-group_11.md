@@ -629,43 +629,49 @@ The test results for Test Case 10 demonstrated an error with the combine method 
 
 ### intersects
 
-| Test Case # | Class  | Test Case Name                    | Pass/Failure | Failure Message |
-|------------|--------|-----------------------------------|-------------|----------------|
-| 11         | Range  | testIntersects_LowerGreaterThanUpper         | Failure | Expected IllegalArgumentException but no exception was thrown. |
-| 12         | Range  | testIntersects_FullOverlap               | Pass    |                |
-| 13         | Range  | testIntersects_PartialOverlap            | Pass    |                |
-| 14         | Range  | testIntersects_NoOverlap                 | Pass    |                |
-| 15         | Range  | testIntersects_TouchingLowerBoundary    | Failure | The range (1.0, 4.0) should touch the lower boundary of (4.0, 6.0) |
-| 16         | Range  | testIntersects_TouchingUpperBoundary    | Pass    |                |
-| 17         | Range  | testIntersects_RangeEqualToPoint       | Pass    |                |
+| Test Case # | Class | Test Case Name | Pass/Failure | Failure Message |
+|-------------|-------|---------------|--------------|----------------|
+| 11 | Range | testIntersects_LowerGreaterThanUpper | Failure | Expected IllegalArgumentException but no exception was thrown. |
+| 12 | Range | testIntersects_FullOverlap | Pass | |
+| 13 | Range | testIntersects_PartialOverlap | Pass | |
+| 14 | Range | testIntersects_NoOverlap | Pass | |
+| 15 | Range | testIntersects_TouchingLowerBoundary | Failure | The range (1.0, 4.0) should touch the lower boundary of (4.0, 6.0) |
+| 16 | Range | testIntersects_TouchingUpperBoundary | Pass | |
+| 17 | Range | testIntersects_RangeEqualToPoint | Pass | |
+
+In testing the `intersects` method, it was found that test case 15 resulted in a failure. This test aims to test the boundary condition where the Range object's upper attribute was the same value as the lower boundary of the range which is being tested for intersection. All other test cases passed the `intersects` method. 
 
 ### shift
 
-| Test Case # | Class  | Test Case Name                            | Pass/Failure | Failure Message |
-|------------|--------|-------------------------------------------|-------------|----------------|
-| 18         | Range  | testShift_RangeWithNaN           | Pass    |                |
-| 19         | Range  | testShift_ZeroRangePositiveDelta           | Pass    |                |
-| 20         | Range  | testShift_ZeroRangeNegativeDelta       | Pass    |                |
-| 21         | Range  | testShift_PositiveRangePositiveDelta       | Pass    |                |
-| 22         | Range  | testShift_NegativeRangeNegativeDelta     | Pass |                |
-| 23         | Range  | testShift_PositiveRangeCrossZeroLower | Pass    |                |
-| 24         | Range  | testShift_PositiveRangeCrossZeroLowerAllowed | Failure | The shifted range of (1.0, 5.0) with delta -1.1 should be (-0.1, 3.9) expected:<Range[1.9,3.9]> but was:<Range[-0.10000000000000009,-0.10000000000000009]> |
-| 25         | Range  | testShift_NegativeRangeCrossZeroUpper     | Failure | The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.0) expected:<Range[-1.95,0.0]> but was:<Range[0.10000000000000009,0.10000000000000009]> |
-| 26         | Range  | testShift_NegativeRangeCrossZeroUpperAllowed | Failure | The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.1) expected:<Range[-1.9,0.1]> but was:<Range[0.10000000000000009,0.10000000000000009]> |
-| 27         | Range  | testShift_VeryLargeDoubles | Pass    |                |
-| 28         | Range  | testShift_VerySmallDoubles | Pass    |                |
+| Test Case # | Class | Test Case Name | Pass/Failure | Failure Message |
+|-------------|-------|---------------|--------------|----------------|
+| 18 | Range | testShift_RangeWithNaN | Pass | |
+| 19 | Range | testShift_ZeroRangePositiveDelta | Pass | |
+| 20 | Range | testShift_ZeroRangeNegativeDelta | Pass | |
+| 21 | Range | testShift_PositiveRangePositiveDelta | Pass | |
+| 22 | Range | testShift_NegativeRangeNegativeDelta | Pass | |
+| 23 | Range | testShift_PositiveRangeCrossZeroLower | Pass | |
+| 24 | Range | testShift_PositiveRangeCrossZeroLowerAllowed | Failure | The shifted range of (1.0, 5.0) with delta -1.1 should be (-0.1, 3.9) expected:<Range[1.9,3.9]> but was:<Range[-0.10000000000000009,-0.10000000000000009]> |
+| 25 | Range | testShift_NegativeRangeCrossZeroUpper | Failure | The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.0) expected:<Range[-1.95,0.0]> but was:<Range[0.10000000000000009,0.10000000000000009]> |
+| 26 | Range | testShift_NegativeRangeCrossZeroUpperAllowed | Failure | The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.1) expected:<Range[-1.9,0.1]> but was:<Range[0.10000000000000009,0.10000000000000009]> |
+| 27 | Range | testShift_VeryLargeDoubles | Pass | |
+| 28 | Range | testShift_VerySmallDoubles | Pass | |
+
+In testing the `shift` method, it was found that test case 24, 25, 26 resulted in failures. The test cases which failed are related to handling scenarios where one bound of the range crosses zero. In cases where `allowZeroCrossing` is set to true, the bounds that cross zero should not be clamped to zero. When `allowZeroCrossing` is false, the bounds that cross zero should be clamped to zero.
 
 ### equals 
 
-| Test Case # | Class  | Test Case Name               | Pass/Failure | Failure Message |
-|------------|--------|-----------------------------|-------------|----------------|
-| 29         | Range  | testEquals_NotEquivalentRange   | Pass    |                |
-| 30         | Range  | testEquals_EquivalentRange       | Pass    |                |
-| 31         | Range  | testEquals_Itself                 | Pass    |                |
-| 32         | Range  | testEquals_NullRange             | Pass    |                |
-| 33         | Range  | testEquals_NotARangeObject     | Pass    |                |
-| 34         | Range  | testEquals_DerivedRangeObject   | Pass    |                |
-| 35         | Range  | testEquals_RangeWithNaNValues  | Failure | The range (NaN, NaN) should be equal to (NaN, NaN) |
+| Test Case # | Class | Test Case Name | Pass/Failure | Failure Message |
+|-------------|-------|---------------|--------------|----------------|
+| 29 | Range | testEquals_NotEquivalentRange | Pass | |
+| 30 | Range | testEquals_EquivalentRange | Pass | |
+| 31 | Range | testEquals_Itself | Pass | |
+| 32 | Range | testEquals_NullRange | Pass | |
+| 33 | Range | testEquals_NotARangeObject | Pass | |
+| 34 | Range | testEquals_DerivedRangeObject | Pass | |
+| 35 | Range | testEquals_RangeWithNaNValues | Failure | The range (NaN, NaN) should be equal to (NaN, NaN) |
+
+In testing the `equals` method, it was found that test cases passed except for the test case where the provided Range contains `Double.NaN` values. In this case, more information may be needed, which may be obtained by looking at the source code to understand how the Range class handles Double.NaN values in its constructor. Additionally, the javadoc for the `equals` method only specifies that it tests for equality of arbitrary objects, and so a range containing only `NaN` for upper and lower should be equivalent to another range which contains the same upper and lower attributes.
 
 ### createNumberArray
 
@@ -737,7 +743,11 @@ The reporting sections of the lab were split evenly among the team members.
 
 # 6 Difficulties encountered, challenges overcome, and lessons learned
 
-Text…
+### Difficulties encountered
+
+In completing this lab, one of the main challenges we faced was in designing a test suite that did not contain an excessive number of test cases. It required careful planning and designing in order to select the tests which we felt would cover the main mechanisms of failure for the selected methods. After identifying the Test Cases and the boundary conditions around which testing should occur, it was up to the team member designing the test to select the appropriate parameters around boundary conditions. We experienced a situation where the approach to testing a method differed between team members. This highlights the challenge in testing where different people may have different intepretations or understandings. In overcoming this, it was very useful for pairs to discuss and review each others test cases, allowing everyone to gain insight into each person's unique understanding.
+
+In running and executing tests, we learned that testers had to be precise in reviewing the test cases which passed and failed. It is important to ensure that the tests were written with confidence and precision in order to have trust in the test suite results. We also learned that Black box testing has its limitations. Without having access to the source code, you can only identify that there is an issue. In addition, without seeing the source code, it is difficult to know how certain edge cases are handled, especially if those edge cases represent unique cases in which the javadocs does not specify. We also learned that Black box testing is limited by the quality of the javadocs, if the specification of the method is unclear, the tester may incorrectly interpret the requirement. In the case of this lab, the JFreeChart documentation was clear and comprehensive.
 
 # 7 Comments/feedback on the lab itself
 

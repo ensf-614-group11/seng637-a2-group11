@@ -297,7 +297,7 @@ public class RangeTest {
 	// Test Case 25: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is negative and delta causes the upper bound to cross zero
 	@Test
 	public void testShift_NegativeRangeCrossZeroUpper() {
-	    Range shiftedRange = Range.shift(exampleRange16, 1.1, false);
+	    Range shiftedRange = Range.shift(exampleRange30, 1.1, false);
 	    assertEquals("The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.0)",
 	            exampleRange22, shiftedRange);
 	}
@@ -305,7 +305,7 @@ public class RangeTest {
 	// Test Case 26: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is negative and delta causes the upper bound to cross zero (zero crossing allowed)
 	@Test
 	public void testShift_NegativeRangeCrossZeroUpperAllowed() {
-	    Range shiftedRange = Range.shift(exampleRange16, 1.1, true);
+	    Range shiftedRange = Range.shift(exampleRange30, 1.1, true);
 	    assertEquals("The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.1)",
 	            exampleRange23, shiftedRange);
 	}
