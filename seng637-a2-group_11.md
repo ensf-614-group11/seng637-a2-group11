@@ -10,6 +10,8 @@
 |Rhys Wickens    |     |
 |Austen Zhang    |     |
 
+NOTE: See the README.md for instructions on how to open the test suites for JFreeChart in Eclipse.
+
 # 1 Introduction
 
 In this lab, we perform black box software testing on JfreeChart, a Java chart library for developers to display professional quality charts in their applications. JFreeChart was provided to us as jar files, meaning we were able to run the application, however, we were not able to see the underlying code. Therefore, our tests are black box tests, as we are able to see the inputs and outputs of each method, but unable to see the underlying logic within the methods.
