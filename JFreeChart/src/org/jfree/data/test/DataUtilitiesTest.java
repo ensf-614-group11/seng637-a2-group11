@@ -37,7 +37,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	@Before
 	public void setUp() {
 		context_values2d = new Mockery(); // used in test case 52, 54, 55, 57
-		mockData_values2d = context.mock(Values2D.class); // used in test case 52, 54, 55, 57
+		mockData_values2d = context_values2d.mock(Values2D.class); // used in test case 52, 54, 55, 57
 		context_keyed = new Mockery(); // used in test case 48, 49, 51
         	mockData_keyed = context_keyed.mock(KeyedValues.class); // used in test case 48, 49, 51
 
