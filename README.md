@@ -40,9 +40,9 @@
      - `org.jfree.data.test.RangeTest`
      - `org.jfree.data.test.DataUtilitiesTest`
 
-# Notes
+# Troubleshooting
    - If any issues occur, manually add the JARs:
      - Right-click the project → **Build Path** → **Configure Build Path** → **Libraries** → **Add JARs**.
      - Select the JARs from the `lib` folder and click **OK**.
+     - Verify that the JAR files in the `lib` folder match the ones listed in the `.classpath` file.
 - The `.classpath` file uses relative paths to the `lib` folder, which are used by eclipse to build the project dependencies. Ensure the `lib` folder is present in the project directory.
-- If you encounter issues, verify that the JAR files in the `lib` folder match the ones listed in the `.classpath` file.
