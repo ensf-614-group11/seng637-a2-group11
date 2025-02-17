@@ -39,6 +39,11 @@ public class RangeTest {
     private Range exampleRange23;
     private Range exampleRange24;
     private Range exampleRange25;
+	private Range exampleRange26;
+    private Range exampleRange27;
+    private Range exampleRange28;
+    private Range exampleRange29;
+	private Range exampleRange30;
     
     private Object exampleObject; 
    
@@ -55,9 +60,9 @@ public class RangeTest {
     	exampleRange3 = new Range(15.0, 25.0); // Range variable for tests 7, 8
     	exampleRange4 = new Range(10.0, 17.5); // Range variable for test 9
     	exampleRange5 = new Range(0.5, 35.0); // Range variable for test 9
-    	exampleRange6 = new Range (-10.5, 5.5); // Range variable for test 10
+    	exampleRange6 = new Range(-10.5, 5.5); // Range variable for test 10
         exampleRange7 = new Range(45.5, 75.5); // Range variable for test 10
-        exampleRange8 = new Range (-10.5, 75.5); // Range variable for test 10
+        exampleRange8 = new Range(-10.5, 75.5); // Range variable for test 10
         exampleRange9 = new Range(2.9, 6.1); // Range variable for test 11
         exampleRange10 = new Range(2.9, 5.1); // Range variable for tests 12, 13
         exampleRange11 = new Range(1.0, 3.0); // Range variable for test 14
@@ -73,8 +78,13 @@ public class RangeTest {
         exampleRange21 = new Range(-0.1, 3.9); // Range variable for test 24
         exampleRange22 = new Range(-3.9, 0.0); // Range variable for test 25
         exampleRange23 = new Range(-3.9, 0.1); // Range variable for test 26
-        exampleRange24 = new Range (0.0, 0.0); // Range variable for test 30
-        exampleRange25 = new Range (Double.NaN, Double.NaN); // Range variable for test 35
+        exampleRange24 = new Range(0.0, 0.0); // Range variable for test 30
+		exampleRange25 = new Range(Double.MAX_VALUE / 2, Double.MAX_VALUE); // Range variable for test 27
+        exampleRange26 = new Range(Double.MAX_VALUE, Double.MAX_VALUE + Double.MAX_VALUE / 2); // Range variable for test 27
+        exampleRange27 = new Range(Double.MIN_VALUE, Double.MIN_VALUE * 2); // Range variable for test 28
+        exampleRange28 = new Range(Double.MIN_VALUE + Double.MIN_VALUE, Double.MIN_VALUE * 2 + Double.MIN_VALUE); // Range variable for test 28
+        exampleRange29 = new Range(Double.NaN, Double.NaN); // Range variable for test 35
+		exampleRange30 = new Range(-5.0, -1.0); // Range variable for test 22
         
         exampleObject = new Object();
     }
@@ -225,159 +235,182 @@ public class RangeTest {
 	                exampleRange13.intersects(3.0, 3.0));
 	 }
 	
-	 // ================== shift Method Tests ==================
+	// ================== shift Method Tests ==================
 	
 	// Test Case 18: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where base is null
-	    @Test
-	    public void testShift_RangeWithNaN() {
-	        Range nanRange = new Range(Double.NaN, 5.0);
-	        Range shiftedRange = Range.shift(nanRange, 1.0, true);
-	        assertTrue("Shifted range should contain NaN",
-	                Double.isNaN(shiftedRange.getLowerBound()));
-	    }
-	    
-	    // Test Case 19: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is a zero-length range and delta is positive
-	    @Test
-	    public void testShift_ZeroRangePositiveDelta() {
-	        Range shiftedRange = Range.shift(exampleRange14, 1.0, false);
-	        assertEquals("The shifted range of (0.0, 0.0) with delta 1.0 should be (1.0, 1.0)",
-	                exampleRange15, shiftedRange);
-	    }
-	    
-	    // Test Case 20: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is a zero-length range and delta is negative
-	    @Test
-	    public void testShift_ZeroRangeNegativeDelta() {
-	        Range shiftedRange = Range.shift(exampleRange14, -1.0, false);
-	        assertEquals("The shifted range of (0.0, 0.0) with delta -1.0 should be (-1.0, -1.0)",
-	                exampleRange16, shiftedRange);
-	    }
-	    
-	    // Test Case 21: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is fully positive and delta is positive
-	    @Test
-	    public void testShift_PositiveRangePositiveDelta() {
-	        Range shiftedRange = Range.shift(exampleRange17, 2.0, true);
-	        assertEquals("The shifted range of (1.0, 5.0) with delta 2.0 should be (3.0, 7.0)",
-	                exampleRange18, shiftedRange);
-	    }
-	    
-	    // Test Case 22: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is fully negative and delta is negative
-	    @Test
-	    public void testShift_NegativeRangeNegativeDelta() {
-	        Range shiftedRange = Range.shift(exampleRange16, -2.0, true);
-	        assertEquals("The shifted range of (-5.0, -1.0) with delta -2.0 should be (-7.0, -3.0)",
-	                exampleRange19, shiftedRange);
-	    }
-	    
-	    // Test Case 23: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is positive and delta causes the lower bound to cross zero
-	    @Test
-	    public void testShift_PositiveRangeCrossZeroLower() {
-	        Range shiftedRange = Range.shift(exampleRange17, -1.1, false);
-	        assertEquals("The shifted range of (1.0, 5.0) with delta -1.1 should be (0.0, 3.9)",
-	                exampleRange20, shiftedRange);
-	    }
-	    
-	    // Test Case 24: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is positive and delta causes the lower bound to cross zero (zero crossing allowed)
-	    @Test
-	    public void testShift_PositiveRangeCrossZeroLowerAllowed() {
-	        Range shiftedRange = Range.shift(exampleRange17, -1.1, true);
-	        assertEquals("The shifted range of (1.0, 5.0) with delta -1.1 should be (-0.1, 3.9)",
-	                exampleRange21, shiftedRange);
-	    }
-	    
-	    // Test Case 25: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is negative and delta causes the upper bound to cross zero
-	    @Test
-	    public void testShift_NegativeRangeCrossZeroUpper() {
-	        Range shiftedRange = Range.shift(exampleRange16, 1.1, false);
-	        assertEquals("The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.0)",
-	                exampleRange22, shiftedRange);
-	    }
-	    
-	    // Test Case 26: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is negative and delta causes the upper bound to cross zero (zero crossing allowed)
-	    @Test
-	    public void testShift_NegativeRangeCrossZeroUpperAllowed() {
-	        Range shiftedRange = Range.shift(exampleRange16, 1.1, true);
-	        assertEquals("The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.1)",
-	                exampleRange23, shiftedRange);
-	    }
+	@Test
+	public void testShift_RangeWithNaN() {
+	    Range nanRange = new Range(Double.NaN, 5.0);
+	    Range shiftedRange = Range.shift(nanRange, 1.0, true);
+	    assertTrue("Shifted range should contain NaN",
+	            Double.isNaN(shiftedRange.getLowerBound()));
+	}
 	
-	    // ================== equals Method Tests ==================
-	    
-	    // Test Case 29: Test method equals(Object obj) for the partition where the input is a range but not equivalent
-	    @Test
-	    public void testEquals_NotEquivalentRange() {
-	        assertFalse("The range (0.0, 0.0) should not be equal to (1.0, 5.0)",
-	                exampleRange14.equals(exampleRange17));
-	    }
-	    
-	    // Test Case 30: Test method equals(Object obj) for the partition where the input is an equivalent range
-	    @Test
-	    public void testEquals_EquivalentRange() {
-	        assertTrue("The range (0.0, 0.0) should be equal to (0.0, 0.0)",
-	                exampleRange14.equals(exampleRange24));
-	    }
-	    
-	    // Test Case 31: Test method equals(Object obj) for the partition where the input is the same instance
-	    @Test
-	    public void testEquals_Itself() {
-	        assertTrue("The range (0.0, 0.0) should be equal to itself",
-	                exampleRange14.equals(exampleRange14));
-	    }
-	    
-	    // Test Case 32: Test method equals(Object obj) for the partition where the input is null
-	    @Test
-	    public void testEquals_NullRange() {
-	        assertFalse("The range (0.0, 0.0) should not be equal to null",
-	                exampleRange14.equals(null));
-	    }
-	    
-	    // Test Case 33: Test method equals(Object obj) for the partition where the input is not a range object
-	    @Test
-	    public void testEquals_NotARangeObject() {
-	        assertFalse("The range (0.0, 0.0) should not be equal to an arbitrary object",
-	                exampleRange14.equals(exampleObject));
-	    }
-	    
-	    // Test Case 35: Test method equals(Object obj) for the partition where the range contains NaN values
-	    @Test
-	    public void testEquals_RangeWithNaNValues() {
-	        assertTrue("The range (NaN, NaN) should be equal to (NaN, NaN)",
-	                exampleRange25.equals(new Range(Double.NaN, Double.NaN)));
-	    }
-    
+	// Test Case 19: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is a zero-length range and delta is positive
+	@Test
+	public void testShift_ZeroRangePositiveDelta() {
+	    Range shiftedRange = Range.shift(exampleRange14, 1.0, false);
+	    assertEquals("The shifted range of (0.0, 0.0) with delta 1.0 should be (1.0, 1.0)",
+	            exampleRange15, shiftedRange);
+	}
+	
+	// Test Case 20: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is a zero-length range and delta is negative
+	@Test
+	public void testShift_ZeroRangeNegativeDelta() {
+	    Range shiftedRange = Range.shift(exampleRange14, -1.0, false);
+	    assertEquals("The shifted range of (0.0, 0.0) with delta -1.0 should be (-1.0, -1.0)",
+	            exampleRange16, shiftedRange);
+	}
+	
+	// Test Case 21: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is fully positive and delta is positive
+	@Test
+	public void testShift_PositiveRangePositiveDelta() {
+	    Range shiftedRange = Range.shift(exampleRange17, 2.0, true);
+	    assertEquals("The shifted range of (1.0, 5.0) with delta 2.0 should be (3.0, 7.0)",
+	            exampleRange18, shiftedRange);
+	}
+	
+	// Test Case 22: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is fully negative and delta is negative
+	@Test
+	public void testShift_NegativeRangeNegativeDelta() {
+	    Range shiftedRange = Range.shift(exampleRange30, -2.0, true);
+	    assertEquals("The shifted range of (-5.0, -1.0) with delta -2.0 should be (-7.0, -3.0)",
+	            exampleRange19, shiftedRange);
+	}
+	
+	// Test Case 23: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is positive and delta causes the lower bound to cross zero
+	@Test
+	public void testShift_PositiveRangeCrossZeroLower() {
+	    Range shiftedRange = Range.shift(exampleRange17, -1.1, false);
+	    assertEquals("The shifted range of (1.0, 5.0) with delta -1.1 should be (0.0, 3.9)",
+	            exampleRange20, shiftedRange);
+	}
+	
+	// Test Case 24: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is positive and delta causes the lower bound to cross zero (zero crossing allowed)
+	@Test
+	public void testShift_PositiveRangeCrossZeroLowerAllowed() {
+	    Range shiftedRange = Range.shift(exampleRange17, -1.1, true);
+	    assertEquals("The shifted range of (1.0, 5.0) with delta -1.1 should be (-0.1, 3.9)",
+	            exampleRange21, shiftedRange);
+	}
+	
+	// Test Case 25: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is negative and delta causes the upper bound to cross zero
+	@Test
+	public void testShift_NegativeRangeCrossZeroUpper() {
+	    Range shiftedRange = Range.shift(exampleRange16, 1.1, false);
+	    assertEquals("The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.0)",
+	            exampleRange22, shiftedRange);
+	}
+	
+	// Test Case 26: Test method shift(Range base, double delta, boolean allowZeroCrossing) for the partition where the base range is negative and delta causes the upper bound to cross zero (zero crossing allowed)
+	@Test
+	public void testShift_NegativeRangeCrossZeroUpperAllowed() {
+	    Range shiftedRange = Range.shift(exampleRange16, 1.1, true);
+	    assertEquals("The shifted range of (-5.0, -1.0) with delta 1.1 should be (-3.9, 0.1)",
+	            exampleRange23, shiftedRange);
+	}
+	
+	// Test Case 27: Test method shift(Range base, double delta, boolean allowZeroCrossing) for very large doubles
+	@Test
+	public void testShift_VeryLargeDoubles() {
+		Range shiftedRange = Range.shift(exampleRange25, Double.MAX_VALUE / 2, true);
+		
+		// Check if the shifted range is as expected
+		assertEquals("The shifted range of (Double.MAX_VALUE / 2, Double.MAX_VALUE) with delta Double.MAX_VALUE / 2 should be (Double.MAX_VALUE, Double.MAX_VALUE + Double.MAX_VALUE / 2)",
+				exampleRange26, shiftedRange);
+	}
 
-    @After
-    public void tearDown() throws Exception {
-    	exampleRange = null;
-    	exampleRange2 = null;
-    	exampleRange3 = null;
-    	exampleRange4 = null;
-    	exampleRange5 = null;
-    	exampleRange6 = null;
-        exampleRange7 = null;
-        exampleRange8 = null;
-        exampleRange9 = null;
-        exampleRange10 = null;
-        exampleRange11 = null;
-        exampleRange12 = null;
-        exampleRange13 = null;
-        exampleRange14 = null;
-        exampleRange15 = null;
-        exampleRange16 = null;
-        exampleRange17 = null;
-        exampleRange18 = null;
-        exampleRange19 = null;
-        exampleRange20 = null;
-        exampleRange21 = null;
-        exampleRange22 = null;
-        exampleRange23 = null;
-        exampleRange24 = null;
-        exampleRange25 = null;
-        
-        exampleObject = null;
+	// Test Case 28: Test method shift(Range base, double delta, boolean allowZeroCrossing) for very small doubles
+	@Test
+	public void testShift_VerySmallDoubles() {
+		Range shiftedRange = Range.shift(exampleRange27, Double.MIN_VALUE, true);
+		
+		// Check if the shifted range is as expected
+		assertEquals("The shifted range of (Double.MIN_VALUE, Double.MIN_VALUE * 2) with delta Double.MIN_VALUE should be (Double.MIN_VALUE + Double.MIN_VALUE, Double.MIN_VALUE * 2 + Double.MIN_VALUE)",
+				exampleRange28, shiftedRange);
+	}
+	
+	// ================== equals Method Tests ==================
+	
+	// Test Case 29: Test method equals(Object obj) for the partition where the input is a range but not equivalent
+	@Test
+	public void testEquals_NotEquivalentRange() {
+	    assertFalse("The range (0.0, 0.0) should not be equal to (1.0, 5.0)",
+	            exampleRange14.equals(exampleRange17));
+	}
+	
+	// Test Case 30: Test method equals(Object obj) for the partition where the input is an equivalent range
+	@Test
+	public void testEquals_EquivalentRange() {
+	    assertTrue("The range (0.0, 0.0) should be equal to (0.0, 0.0)",
+	            exampleRange14.equals(exampleRange24));
+	}
+	
+	// Test Case 31: Test method equals(Object obj) for the partition where the input is the same instance
+	@Test
+	public void testEquals_Itself() {
+	    assertTrue("The range (0.0, 0.0) should be equal to itself",
+	            exampleRange14.equals(exampleRange14));
+	}
+	
+	// Test Case 32: Test method equals(Object obj) for the partition where the input is null
+	@Test
+	public void testEquals_NullRange() {
+	    assertFalse("The range (0.0, 0.0) should not be equal to null",
+	            exampleRange14.equals(null));
+	}
+	
+	// Test Case 33: Test method equals(Object obj) for the partition where the input is not a range object
+	@Test
+	public void testEquals_NotARangeObject() {
+	    assertFalse("The range (0.0, 0.0) should not be equal to an arbitrary object",
+	            exampleRange14.equals(exampleObject));
+	}
+	
+	// Test Case 35: Test method equals(Object obj) for the partition where the range contains NaN values
+	@Test
+	public void testEquals_RangeWithNaNValues() {
+	    assertTrue("The range (NaN, NaN) should be equal to (NaN, NaN)",
+	            exampleRange29.equals(new Range(Double.NaN, Double.NaN)));
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+	    exampleRange = null;
+	    exampleRange2 = null;
+	    exampleRange3 = null;
+	    exampleRange4 = null;
+	    exampleRange5 = null;
+	    exampleRange6 = null;
+	    exampleRange7 = null;
+	    exampleRange8 = null;
+	    exampleRange9 = null;
+	    exampleRange10 = null;
+	    exampleRange11 = null;
+	    exampleRange12 = null;
+	    exampleRange13 = null;
+	    exampleRange14 = null;
+	    exampleRange15 = null;
+	    exampleRange16 = null;
+	    exampleRange17 = null;
+	    exampleRange18 = null;
+	    exampleRange19 = null;
+	    exampleRange20 = null;
+	    exampleRange21 = null;
+	    exampleRange22 = null;
+	    exampleRange23 = null;
+	    exampleRange24 = null;
+	    exampleRange25 = null;
+		exampleRange26 = null;
+		exampleRange27 = null;
+		exampleRange28 = null;
+		exampleRange29 = null;
 
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-    }
+	    
+	    exampleObject = null;
+	}
+	
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
 }
